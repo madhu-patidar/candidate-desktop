@@ -1,0 +1,1 @@
+export const DOCUMENT_FORMAT_LIST = ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf', 'text/html', 'text/plain', 'application/msword', 'image/gif', "application/vnd.openxmlformats-officedocument.wordprocessingml.document", 'image/vnd.ms-modi'];

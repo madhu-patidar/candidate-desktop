@@ -1,0 +1,27 @@
+<section id="login_registration" class="container-fluid">
+	<div class="container">
+		<h2 class="bdrBtmy2a"><span>Forgot User ID</span></h2>
+		<div class="reg_form"><br />
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="input-effect has-content">
+						<input [ngClass]="{'has-content':emailField}" (keyup)="onKey($event.target.value)"class="inputFloatEffect" value="" type="text" placeholder="" #emailContainer>
+						<label>Registered Email ID</label>
+						<span class="focus-border"></span>
+					</div>
+					<div class="orSeprator" align="center">
+						<img src="assets/images/reg_or_sepratorHor.png" alt="OR" />
+					</div>
+					<div class="input-effect">
+						<input class="inputFloatEffect" [ngClass]="{'has-content':contactField}" (keyup)="onKeyContact($event.target.value)" value="" type="text" placeholder="" #contactElement>
+						<label>Registered Mobile Number</label>
+						<span class="focus-border"></span>
+					</div>
+					<input type="button" value="submit"(click)="navigateToLoginPage()" class="submitBtn btn" />
+					<input type="button" value="back" (click)="back()" class="cancelBtn" />
+				</div>
+				<div class="col-sm-8">&nbsp;</div>
+			</div>
+		</div>
+	</div>
+</section>

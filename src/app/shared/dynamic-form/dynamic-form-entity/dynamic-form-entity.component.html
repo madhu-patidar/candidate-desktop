@@ -1,0 +1,30 @@
+<div [formGroup]="form" >
+  <div [ngSwitch]="entity.controlType" class="form-group">
+    <div class="input-effect has-content" *ngSwitchCase="'textbox'">
+      <input tabindex="0" [attr.aria-label]="entity.label" class="inputFloatEffect has-content"  [maxlength]="30" [formControlName]="entity.key" [id]="entity.key + entity.value" [type]="entity.type" aria-required="true"/>
+      <label [attr.for]="entity.key">{{entity.label}} <span style="color:red" *ngIf="entity.required" class="astrik">*</span></label>
+      <span class="focus-border"></span>
+    </div>
+    <div class="input-effect has-content" *ngSwitchCase="'numberField'">
+      <input tabindex="0" [attr.aria-label]="entity.label" class="inputFloatEffect has-content"  [maxlength]="30" [formControlName]="entity.key" [id]="entity.key + entity.value" [type]="entity.type" aria-required="true" />
+      <label [attr.for]="entity.key">{{entity.label}} <span style="color:red" *ngIf="entity.required" class="astrik">*</span></label>
+      <span class="focus-border"></span>
+    </div>
+    <div class="input-effect has-content" style="margin-top: 15px;" *ngSwitchCase="'dateField'">
+      <input tabindex="0" [attr.aria-label]="entity.label" class="inputFloatEffect has-content" [formControlName]="entity.key" [id]="entity.key  + entity.value" [type]="'date'" [max]="maxDate" aria-required="true"/>
+      <label [attr.for]="entity.key">{{entity.label}} <span style="color:red" *ngIf="entity.required" class="astrik">*</span></label>
+      <span class="focus-border"></span>
+    </div>
+    <div class="relative selectDDreqAst" *ngSwitchCase="'dropdown'">
+        <span style="color:red" *ngIf="entity.required" class="astrik">*</span>
+    <select style="margin-top: 7px;" tabindex="0" [attr.aria-label]="entity.label" role="listbox" class="form-control" [id]="entity.key + entity.value"  [formControlName]="entity.key" aria-required="true">
+      <option [selected]="entity.value ==='NA' || entity.value ==='-' ||  entity.value ==='' || entity.value === undefined " value=""> -- Select {{entity.label | lowercase}} --</option>
+      <option *ngFor="let opt of sorting(entity.options)" [selected]="entity.value === opt.itemValue" [value]="opt.itemValue">{{opt.itemDescription}}</option>
+    </select>
+  </div>
+    <div *ngSwitchCase="'radio'">
+      <div>{{entity.label}} <span style="color:red" *ngIf="entity.required" class="astrik">*</span></div>
+       <label  class="rbt" *ngFor="let opt of entity.options"> <label [attr.for]="entity.key">{{opt.itemDescription}}</label><input type="radio" [name]="entity.name" [formControlName]="entity.key" [checked]="opt.itemValue === entity.value" [value]="opt.itemValue"> <span class="checkmark"></span></label>
+    </div>  
+  </div> 
+</div>

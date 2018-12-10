@@ -1,0 +1,98 @@
+
+<section class="breadCrumb container-fluid">
+    <a routerLink="/candidates/dashboard"><i class="left"></i> &nbsp; Dashboard</a>
+</section>
+<app-my-profile-header  [screenNumber]="screenNumber"></app-my-profile-header>
+<ngx-loading [show]="loading"></ngx-loading>
+<section id="intDet" class="container-fluid">
+  <div class="personalDetails	five">
+    <span class="topArw"></span>
+    <div class="container" *ngIf="(formList && formList.length > 0) || showAddMoreIdentityCheck">
+        <app-commet-text-area *ngIf="!isEntityDisabled"></app-commet-text-area>
+      </div>
+    <div class="container" *ngFor="let subEntityExistingDetail of subEntityExistingDetails;let i = index">
+        <h5> <strong>Identity Check</strong></h5>
+        <p>(Passport, Pan card, Driving License, Voter's ID card, Aadhaar card)</p>
+        <p><span style="color:red" class="astrik">*</span>All the mentioned documents are mandatory for joining backgroung verification process </p>
+        <div class="container">
+            <form [formGroup]="formList[i]"  >
+              <div class="row">
+                <div *ngFor="let entity of entitiesList[i]" class="form-row col-md-6 inputLblBlk">
+                  <app-entity [entity]="entity" [form]="formList[i]"></app-entity>
+                </div>
+              </div>
+            </form>
+            
+            <!-- {{filesNameArray | json}}-->
+            
+            <hr *ngIf="fileDetailsList[i] && fileDetailsList[i].length > 0">
+            <h5 *ngIf="fileDetailsList[i] && fileDetailsList[i].length > 0"><strong>Documents upload:</strong></h5>
+            <p *ngIf="fileDetailsList[i] && fileDetailsList[i].length > 0"><span class="astrik"></span>PNG/JPG/JPEG/PDF/DOC/HTML/MSG/DOCX/TEXT/GIF/MDI </p>
+            <br *ngIf="fileDetailsList && fileDetailsList.length > 0">
+            
+            <div class="col-md-4" *ngFor="let fileDetail of fileDetailsList[i];let inx = index" [hidden]="!(inx == 0 || (inx > 0 && fileDetail.sub_sequence !== fileDetailsList[i][inx -1 ].sub_sequence))">
+                
+                <!-- {{fileDetail | json}} -->
+              <div *ngIf="inx == 0 || (inx > 0 && fileDetail.sub_sequence !== fileDetailsList[i][inx -1 ].sub_sequence) ">
+                <div *ngFor="let fileDetail2 of fileDetailsList[i];let ind = index">
+                  <div class="uploadInputType" *ngIf="inx == ind">
+                    <label for="file-upload" class="custom-file-upload">
+                      <i class="fa fa-cloud-upload" ></i> 
+                      <span>Documents </span>
+                    </label>
+                    <input type="file" [disabled]="isEntityDisabled" [hidden] = "isEntityDisabled" style="color: transparent !important;" id="file-upload" name='upload_cont_img' ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event, fileDetail)" [uploadInput]="uploadInput"  onclick="value = null" multiple>
+                    <br>
+                  </div>
+                </div>
+                <span style="width:100%" *ngFor="let fileDetail2 of fileDetailsList[i];let index1 = index">
+                    <span class="docuRow" *ngIf="fileDetail.sub_sequence ===fileDetail2.sub_sequence">{{filesNameArray[i][index1]}}&nbsp;&nbsp; <span [hidden]="!filesNameArray[i][index1]"><a [ngClass]="!isEntityDisabled ? 'disabled' : ''" href="javascript:;" (click)="removeExisingFile(i, index1)"><i class="fa fa-trash" aria-hidden="true"></i></a> 
+                    </span>&nbsp;</span>
+                  </span>
+              </div>
+            </div>
+            <br><br>
+          </div>
+    </div>
+    <div *ngIf="showAddMoreIdentityCheck">
+        <div class="container">
+            <h5> <strong>Identity Check</strong></h5>
+            <p>(Passport, Pan card, Driving License, Voter's ID card, Aadhaar card)</p>
+            <p><span style="color:red" class="astrik">*</span>All the mentioned documents are mandatory for joining backgroung verification process </p>
+          <form (ngSubmit)="onSubmit()" [formGroup]="subEntityDetailsForm">
+            <div class="row">
+              <div *ngFor="let entity of moreEntities" class="form-row col-md-6 inputLblBlk">
+                <app-entity [entity]="entity" [form]="subEntityDetailsForm"></app-entity>
+              </div> 
+            </div><br />
+          </form><hr>  
+          <h5><strong>Documents upload:</strong></h5>
+          <p><span class="astrik"></span>PNG/JPG/JPEG/PDF/DOC/HTML/MSG/DOCX/TEXT/GIF/MDI </p><br>
+          <div class="row">
+            <div class="col-md-4">
+
+                <div class="uploadInputType">
+                <label for="file-upload" class="custom-file-upload">
+                  <i class="fa fa-cloud-upload" ></i> Documents <span style="color:red">*</span> 
+                </label>
+                  <input type="file"  id="file-upload" name='upload_cont_img' title="your text" style="color: transparent;" ngFileSelect [options]="options" (uploadOutput)="onUploadIdentityOutput($event)" [uploadInput]="uploadInputForIdentities"  onclick="value = null" multiple>
+                </div>
+                <br>
+                <span class="docuRow" *ngFor="let file of filesForIdentities;let i = index"> &nbsp;{{file.name}} &nbsp; <span ><a href="javascript:;"><i (click)="removeFile(file.id, i)" class="fa fa-trash" aria-hidden="true"></i></a> 
+                </span>&nbsp;</span>
+            </div>
+          </div>
+        </div><hr><br>
+      </div>
+    <!-- <app-commet-text-area *ngIf="!isEntityDisabled"></app-commet-text-area> -->
+    <!-- <div  class="container">
+      <input *ngIf="!showAddMoreIdentityCheck" style="width: 280px" value="ADD IDENTITY CHECK"   (click)="addIdentityCheck()" class="submitBtn btn" type="button">
+      <input *ngIf="showAddMoreIdentityCheck" style="width: 280px" value="REMOVE IDENTITY CHECK"   (click)="RemoveIdentityCheck()" class="submitBtn btn" type="button">
+    </div><hr><br> -->
+    <div class="container" *ngIf="showAddMoreIdentityCheck || (entitiesList && entitiesList.length > 0)">
+
+      <br *ngIf="isFormInvalid || showSuccessMessage">
+      <input value="Save" (click)="onSubmit('Save')" class="submitBtn btn" type="button">&nbsp;
+      <input value="Save & Next" (click)="onSubmit('Save & Next')" class="submitBtn btn" type="button">
+    </div>
+  </div>
+</section>

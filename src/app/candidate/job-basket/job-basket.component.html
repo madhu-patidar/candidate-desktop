@@ -1,0 +1,116 @@
+<section class="breadCrumb container-fluid">
+    <a routerLink="/candidates/dashboard"><i class="left"></i> &nbsp; Dashboard</a>
+  </section>
+  <section class="jobBasketTop">
+      <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+    <div class="container">
+          <h1 class="bdrBtmy3"><span>Job Basket</span></h1>
+      </div>
+    </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 bg-blue">
+          <div class="jobs">
+            <div class="jobsApp">
+              <span>{{appliedJobsList.length}}</span>
+              Jobs Applied
+            </div>
+            <div class="jobsRef">
+              <span>{{referralJobsList.length}}</span>
+              Jobs Referred
+            </div>
+          </div>
+        </div>
+        </div>
+  </section>
+  <section class="resumeDetails container-fluid">
+    <div class="container">
+      <div class="resNum">
+        <div class="rName" *ngIf="!!candidate">{{candidate.candName}}</div>
+        <div class="rName" *ngIf="!candidate">Sachin Narkar</div>
+        <div class="rNumber">Resume Number: <span *ngIf="!!candidate">{{candidate.resumeNumber}}</span><span *ngIf="!candidate"> 7345942</span></div>
+      </div>
+    </div>
+  </section>
+  <section class="jobsDetails container-fluid">
+    <div class="container">
+      <div class="jobsApplied">
+        <h2 class="bdrBtmy3"><span>Jobs Applied</span></h2>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" *ngFor="let aJob of appliedJobsList">
+            <div class="proDetails">
+              <div class="proPad">
+              <div class="proName">{{aJob.jobTitle}}</div>
+              <div class="proArea">{{aJob.jobLocation}}, {{aJob.jobCountry}}</div>
+              <div class="proCode">Job Code: <span>{{aJob.jobcode}}</span></div>
+              </div>
+              <div class="proStatus">
+                <div class="row">
+                  <div class="proDiv1">
+                    <div class="proPdl iconDate">
+                      Job applied on
+                      <span>{{aJob.jobAppliedDate}}</span>
+                    </div>
+                  </div>
+                  <div class="proDiv1">
+                    <div class="proPdl iconApp">
+                      Application status
+                      <span [ngClass]="{'prRed': aJob.candidateStatus ==='Withdrawn', 'prGreen':  aJob.candidateStatus ==='Joined' || aJob.candidateStatus ==='Applied'}">{{aJob.candidateStatus}}</span>
+                    </div>
+                  </div>
+                  <div class="proDiv2">
+                    <div class="proPdl iconJobs">
+                      Job status
+                      <span class="prGreen">{{aJob.jobStatus}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" *ngIf="appliedJobsList.length == 0">
+            {{appliedJobsMessage}}
+          </div>
+        </div>
+      </div>
+      <div class="jobsReferred">
+        <h2 class="bdrBtmy3"><span>Jobs Referred</span></h2>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" *ngIf="referralJobsList.length == 0">
+              {{referralJobsMessage}}
+            </div>
+          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" *ngFor="let rJob of referralJobsList">
+            <div class="proDetails">
+              <div class="proPad">
+              <div class="proName">{{rJob.jobTitle}}</div>
+                <div class="proArea">{{rJob.jobLocation}}, {{rJob.jobCountry}}</div>
+                <!--<div class="proDept">MAS</div> -->
+              <div class="proCode">Job Code: <span>{{rJob.jobcode}}</span></div>
+              </div>
+              <div class="proStatus">
+                <div class="row">
+                  <div class="proDiv1">
+                    <div class="proPdl iconShare">
+                      Job shared with
+                      <span>{{rJob.candidateName}}</span>
+                    </div>
+                  </div>
+                  <div class="proDiv1">
+                    <div class="proPdl iconDate">
+                      Job shared on
+                      <span>{{rJob.referredDate}}</span>
+                    </div>
+                  </div>
+                  <div class="proDiv2">
+                    <div class="proPdl iconJobs">
+                      Job status
+                      <span class="prGreen">{{rJob.jobStatus}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

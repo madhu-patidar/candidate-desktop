@@ -1,0 +1,22 @@
+<h5 class="container" *ngIf="message"> {{message}}</h5>
+<ngu-carousel
+[inputs]="carouselOne"
+(carouselLoad)="myfunc($event)">
+  <ngu-item NguCarouselItem *ngFor="let job of recommendedJobList" class="rjbsCar">
+    <div class="col-xs-12 rjbs">
+      <div class="recommended_jobs_box">
+        <div class="j_post">{{job.jobTitle}}</div>
+        <div class="j_location">{{job.jobLocation}}, {{job.jobCountry}}</div>
+        <div class="j_company">Global Infrastructure Services</div>
+        <div class="j_exp">Experience : {{job.jobStatus}}</div>
+        <div class="j_code">Job Code : {{job.jobcode}}</div>
+        <div class="bluebtn">
+          <input value="View Details" (click)="navigateToJobRecommended(job.jobcode)" class="submitBtn btn" type="button" role="button" tabindex="0" aria-label="View Details">
+          <!-- <a class="share"><i class="fa fa-share-alt"></i></a> -->
+        </div>
+      </div>
+    </div>
+  </ngu-item>
+  <button NguCarouselPrev class='leftRs ' [hidden]="true">&lt;</button>
+  <button NguCarouselNext class='rightRs ' [hidden]="true">&gt;</button>
+</ngu-carousel>

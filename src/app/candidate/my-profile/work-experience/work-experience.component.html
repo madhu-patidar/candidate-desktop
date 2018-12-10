@@ -1,0 +1,232 @@
+
+<section class="breadCrumb container-fluid">
+    <a routerLink="/candidates/dashboard"><i class="left"></i> &nbsp; Dashboard</a>
+  </section>
+  <app-my-profile-header [screenNumber]="screenNumber"></app-my-profile-header>
+  <ngx-loading [show]="loading"></ngx-loading>
+  <section id="intDet" class="container-fluid">
+      <div class="personalDetails three">
+        <span class="topArw"></span>
+        <div class="container" *ngIf="(formList && formList.length > 0) || showAddMoreWorkExperience">
+            <app-commet-text-area *ngIf="!isEntityDisabled"></app-commet-text-area>
+          </div>
+        <div class="container">
+            <form [formGroup]="workExperienceForm" *ngIf="(formList && formList.length > 0) || showAddMoreWorkExperience">
+              <div class="row">
+                <div class="col-md-6 inputLblBlk">
+                  <div class="input-effect has-content">
+                    <input class="inputFloatEffect" tabindex="0" aria-label="Total work experience (in month)" [ngClass]="{'has-content' : birthLocation2.value !==''}" value=""  type="text" placeholder="" formControlName="workExp"  #birthLocation2>
+                    <label>Total work experience (in year) <span class="astrik" style="color:red">*</span></label>
+                    <span class="focus-border"></span>
+                  </div>
+                </div>
+                <div class="col-md-6 inputLblBlk">
+                  <div class="input-effect has-content">
+                    <input class="inputFloatEffect " formControlName="relevantWorkExp"  [ngClass]="{'has-content' : birthLocation1.value !==''}" value=""  type="text" placeholder="" #birthLocation1 tabindex="0" aria-label="Total work experience (in month)">
+                    <label>Relavant work experience (in year) <span class="astrik" style="color:red">*</span></label>
+                    <span class="focus-border"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-row col-md-12 inputLblBlk">
+                    <div><h6><b>Self-employment &nbsp; &nbsp; </b></h6></div>
+                    <label  class="rbt"> <label>Yes</label>
+                      <input type="radio" (click)="onSelectSelfEmployement('Y')" formControlName="selfEmployment" value="Y" tabindex="0" aria-label="Self-employment Yes"> <span class="checkmark"></span>
+                    </label>
+                    <label  class="rbt"> <label>No</label>
+                      <input type="radio"  (click)="onSelectSelfEmployement('N')" formControlName="selfEmployment" checked value="N" tabindex="0" aria-label="Self-employment No"> <span class="checkmark"></span>
+                    </label>
+                </div>
+              </div>
+            </form> 
+            <form *ngIf="selfEmploymentFormShow" [formGroup]="selfEmploymentForm">
+                <div class="row">
+                    <div class="col-md-6 inputLblBlk">
+                      <div class="input-effect has-content">
+                        <input class="inputFloatEffect" tabindex="0" aria-label="Company name" [ngClass]="{'has-content' : companyName.value !==''}" value=""  type="text" placeholder="" formControlName="companyName"  #companyName>
+                        <label>Company name <span class="astrik" style="color:red">*</span></label>
+                        <span class="focus-border"></span>
+                      </div>
+                    </div>
+                    <div class="col-md-6 inputLblBlk">
+                      <div class="input-effect has-content">
+                        <input class="inputFloatEffect " formControlName="positionHeld"  [ngClass]="{'has-content' : positionHeld.value !==''}" value=""  type="text" placeholder="" #positionHeld tabindex="0" aria-label="positionHeld">
+                        <label>Position held <span class="astrik" style="color:red">*</span></label>
+                        <span class="focus-border"></span>
+                      </div>
+                    </div>
+                  </div>
+                <div class="row">
+                    <div class="col-md-6 inputLblBlk">
+                      <div class="input-effect has-content">
+                        <input class="inputFloatEffect " formControlName="accountantName"  [ngClass]="{'has-content' : accountantName.value !==''}" value=""  type="text" placeholder="" #accountantName tabindex="0" aria-label="Accountant name">
+                        <label>Accountant name <span class="astrik" style="color:red">*</span></label>
+                        <span class="focus-border"></span>
+                      </div>
+                    </div>
+                  <div class="col-md-6 inputLblBlk">
+                    <div class="input-effect has-content">
+                      <input class="inputFloatEffect " formControlName="accountantContactNumber"  [ngClass]="{'has-content' : accountantContactNumber.value !==''}" value=""  type="text" placeholder="" #accountantContactNumber tabindex="0" aria-label="Accountant vcontact number">
+                      <label>Accountant vcontact number <span class="astrik" style="color:red">*</span></label>
+                      <span class="focus-border"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 inputLblBlk">
+                    <div class="input-effect has-content">
+                      <input class="inputFloatEffect" tabindex="0" aria-label="Accountant email id" [ngClass]="{'has-content' : accountantEmailId.value !==''}" value=""  type="text" placeholder="" formControlName="accountantEmailId"  #accountantEmailId>
+                      <label>Accountant email id <span class="astrik" style="color:red">*</span></label>
+                      <span class="focus-border"></span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 inputLblBlk">
+                      <div class="input-effect has-content">
+                        <input class="inputFloatEffect" tabindex="0" aria-label="Accountant address" [ngClass]="{'has-content' : accountantAddress.value !==''}" value=""  type="text" placeholder="" formControlName="accountantAddress"  #accountantAddress>
+                        <label>Accountant address <span class="astrik" style="color:red">*</span></label>
+                        <span class="focus-border"></span>
+                      </div>
+                    </div>
+                  </div>  
+                </form> 
+            
+          <br>
+          <div *ngFor="let subEntityExistingDetail of formList;let i = index">
+            <br>
+            <h3>{{displayNameList[i]}}</h3>
+            <p><span style="color:red" class="astrik">*</span>All the mentioned documents are mandatory for joining backgroung verification process </p>
+            <br>
+            <div class="container">
+              <form [formGroup]="formList[i]"  >
+                <div class="row">
+                  <div *ngFor="let entity of entitiesList[i]" class="form-row col-md-4 inputLblBlk">
+                      
+                    <app-entity [entity]="entity" [form]="formList[i]"></app-entity>
+                  </div>
+                  <div class="form-row2 col-md-4 inputLblBlk" *ngIf="durationDetails &&durationDetails.length > 0 && durationDetails[i] && durationDetails[i].fromDate ">
+                    <input class="inputFloatEffect has-content"  [disabled]="isEntityDisabled" [value]="durationDetails[i].fromDate | date:'yyyy-MM-dd'"(input)="onChangeDate(i, 'fromDate', $event.target.value)" type="date" [max]="maxDate" placeholder="" tabindex="0" aria-label="From Date">
+                    <label>From Date<span style="color:red" class="astrik">*</span></label>
+                    <span class="focus-border"></span>
+                  </div>
+                  <div class="form-row2 col-md-4 inputLblBlk" *ngIf="durationDetails && durationDetails.length > 0 && durationDetails[i] && durationDetails[i].fromDate ">
+                    <input class="inputFloatEffect has-content" [disabled]="isEntityDisabled" (input)="onChangeDate(i, 'toDate', $event.target.value)" [value]="durationDetails[i].toDate | date:'yyyy-MM-dd'" type="date" [max]="maxDate" placeholder=""  tabindex="0" aria-label="To Date">
+                    <label>To Date<span style="color:red" class="astrik">*</span></label>
+                    <span class="focus-border"></span>
+                  </div>
+                </div>
+              </form>
+              <hr>  <br>
+              <h5 *ngIf="fileDetailsList[i] !== undefined && fileDetailsList[i].length > 0"><strong>Documents upload:</strong></h5>
+              <p  *ngIf="fileDetailsList[i] !== undefined && fileDetailsList[i].length > 0"><span class="astrik"></span>PNG / JPG / JPEG / PDF / DOC / HTML / MSG / DOCX / TEXT / GIF / MDI </p>
+              <br>
+            
+              <div class="row">
+                <!-- <div class="col-md-4" *ngFor="let fileDetail of fileDetailsList[i];let inx = index">
+                  <div class="uploadInputType">
+                    <label for="file-upload" class="custom-file-upload">
+                      <i class="fa fa-cloud-upload"></i> {{fileDetail[0].fileName}}
+                    </label>
+                    <input type="file" [disabled]="isEntityDisabled" name="vyu" id="file-upload" name='upload_cont_img' ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event, fileDetail)" [uploadInput]="uploadInput" multiple>
+                </div>
+                </div> -->
+                <div class="col-md-4" *ngFor="let fileDetail of fileDetailsList[i];let inx = index" [hidden]="!(inx == 0 || (inx > 0 && fileDetail.sub_sequence !== fileDetailsList[i][inx -1 ].sub_sequence))">
+                  <div *ngIf="inx == 0 || (inx > 0 && fileDetail.sub_sequence !== fileDetailsList[i][inx -1 ].sub_sequence) ">
+                    <div *ngFor="let fileDetail2 of fileDetailsList[i];let ind = index">
+                      <div class="uploadInputType" *ngIf="inx == ind">
+                        <label for="file-upload" class="custom-file-upload">
+                          <i class="fa fa-cloud-upload" ></i> 
+                          <span >Documents </span>
+                        </label>
+                        <input type="file" [disabled]="isEntityDisabled" [hidden]='isEntityDisabled' id="file-upload" name='upload_cont_img' ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event, fileDetail)" [uploadInput]="uploadInput" multiple>
+                        <br>
+                      </div>
+                    </div>
+
+                     <span class="docuRow" style="width:100%" *ngFor="let name of filesNameArray[i];let index1 = index">
+                        <!-- <span *ngIf="fileDetail.sub_sequence ===fileDetail2.sub_sequence"> -->
+                          {{name}}&nbsp;&nbsp; <span [hidden]="!name" ><a   href="javascript:;" (click)="removeExisingFile(i, index1)"><i class="fa fa-trash" aria-hidden="true"></i></a> 
+                        </span>&nbsp;
+                      <!-- </span> -->
+                      </span>
+
+
+                    <!-- <span style="width:100%" *ngFor="let fileDetail2 of fileDetailsList[i];let index1 = index">
+                        <span *ngIf="fileDetail.sub_sequence ===fileDetail2.sub_sequence">
+                          {{filesNameArray[i]}}
+                          
+                          {{filesNameArray[i][index1]}}&nbsp;&nbsp; <span [hidden]="!filesNameArray[i][index1]" style="color:red"><a [ngClass]="isEntityDisabled ? 'disabled' : ''" style="color:red" href="javascript:;" (click)="removeExisingFile(i, index1)"><i class="fa fa-trash" aria-hidden="true"></i></a> 
+                        </span>&nbsp;</span>
+                      </span> -->
+                  </div>
+                </div>
+                <hr>  <br>
+              </div>
+            </div>
+          </div>
+        </div><br *ngIf="showAddMoreWorkExperience">
+        <div *ngIf="showAddMoreWorkExperience">
+          <div class="container">
+              <h2>Current Employment</h2>
+              <p><span class="astrik">*</span>All the mentioned documents are mandatory for joining backgroung verification process </p>
+            <form (ngSubmit)="onSubmit()" [formGroup]="subEntityDetailsForm">
+              <div class="row">
+                <div *ngFor="let entity of moreEntities;let i = index" class="form-row col-md-4 inputLblBlk">
+                    <app-entity [entity]="entity" [form]="subEntityDetailsForm"></app-entity>
+                </div>
+                <div class="form-row2 col-md-4 inputLblBlk">
+                    <div class="input-effect has-content">
+                      <input class="inputFloatEffect has-content"(input)="onChangeDate(durationDetails.length - 1, 'fromDate', $event.target.value,'addMoreFromDate')" type="date" [max]="maxDate" placeholder="" tabindex="0" aria-label="From Date">
+                      <label>From Date<span style="color:red" class="astrik">*</span></label>
+                      <span class="focus-border"></span>
+                    </div>
+                  </div>
+                  <div class="form-row2 col-md-4 inputLblBlk">
+                      <div class="input-effect has-content">
+                      <input class="inputFloatEffect has-content" (input)="onChangeDate(durationDetails.length -1 , 'toDate', $event.target.value, 'addMoreToDate')" type="date" [max]="maxDate" placeholder=""  tabindex="0" aria-label="To Date">
+                      <label>To Date<span style="color:red" class="astrik">*</span></label>
+                      <span class="focus-border"></span>
+                    </div>
+                  </div>
+              </div><br />
+            </form>
+              <h5><strong>Documents upload:</strong></h5>
+              <p><span class="astrik"></span>PNG / JPG / JPEG / PDF / DOC / HTML / MSG / DOCX / TEXT / GIF / MDI </p>
+              <br>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="uploadInputType">
+                    <label for="file-upload" class="custom-file-upload">
+                      <i class="fa fa-cloud-upload" ></i> Documents <span style="color:red">*</span> 
+                    </label>
+                      <input type="file" style="color: transparent !important;"  id="file-upload" name='upload_cont_img' ngFileSelect [options]="optionsForDocumnet" (uploadOutput)="documentUploaded($event)" [uploadInput]="uploadInputForDocumnet" multiple>
+                      <br>
+                    <span class="docuRow" *ngFor="let file of filesForDocumnet;let i = index"> &nbsp;{{file.name}} &nbsp; <span ><a href="javascript:;"><i (click)="removeFile(file.id, i)" class="fa fa-trash" aria-hidden="true"></i></a> 
+                    </span>&nbsp;</span>
+                    </div>
+                </div>
+              </div>
+          </div>
+          <br>
+          <hr> 
+        </div>
+        <!-- <app-commet-text-area *ngIf="!isEntityDisabled"></app-commet-text-area> -->
+        <div class="container">
+          <input *ngIf="!showAddMoreWorkExperience" value="ADD WORK EXPERIENCE"  style="width: 280px" (click)="addMoreWorkExperience()" class="submitBtn btn" type="button" role="button" tabindex="0" aria-label="ADD WORK EXPERIENCE">
+          <input *ngIf="showAddMoreWorkExperience" value="REMOVE WORK EXPERIENCE"  style="width: 280px"  (click)="removeAddedWorkExperience()" class="submitBtn btn" type="button" role="button" tabindex="0" aria-label="REMOVE WORK EXPERIENCE">
+        </div>
+        <br>
+        <hr>
+        <div class="container" *ngIf="showAddMoreWorkExperience || (entitiesList && entitiesList.length > 0)">
+            <!-- <div *ngIf="isFormInvalid || showSuccessMessage">
+                <br>
+                <span [ngStyle]="{'color':showSuccessMessage ? 'green' : 'red' }">
+                    &nbsp;&nbsp;{{message}}
+                </span>
+              </div>
+              <br *ngIf="isFormInvalid || showSuccessMessage"> -->
+          <input value="Save" (click)="onSubmit('Save')" class="submitBtn btn" type="button" role="button" tabindex="0" aria-label="Save">&nbsp;
+          <input value="Save & Next" (click)="onSubmit('Save & Next')" class="submitBtn btn" type="button" role="button" tabindex="0" aria-label="Save & Next">
+        </div>
+      </div>
+    </section>

@@ -1,0 +1,8 @@
+<ngx-loading [show]="loading"></ngx-loading>
+{{fileName}}
+<div class="uploadInputType">
+  <label for="file-upload" class="custom-file-upload">
+    <i class="fa fa-cloud-upload" ></i> {{fileName}}
+  </label>
+  <input id="file-upload"  name='upload_cont_img' type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event, fileDetails)" [uploadInput]="uploadInput" multiple>
+</div>

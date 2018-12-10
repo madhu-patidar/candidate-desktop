@@ -1,0 +1,129 @@
+
+<section class="breadCrumb container-fluid">
+		<a routerLink="/candidates/dashboard"><i class="left"></i> &nbsp; Dashboard</a>
+	  </section>
+	  <app-my-profile-header [screenNumber]="screenNumber"></app-my-profile-header>
+	  
+	  
+	  <!-- <section id="personalDetailSteps" class="container-fluid">
+		  <div class="container">
+			  <div class="stepsDetails">
+				  <ul>
+					  <li class="completed">
+						  <span>
+							  <img src="assets/images/icons/pd01-a.png" alt="Personal Details" class="done">
+							  <img src="assets/images/icons/pd01.png" alt="Personal Details" class="ndone">
+						  </span>
+						  <i><span>1</span></i>
+						  <b>Personal Details</b>
+					  </li>
+					  <li class="completed">
+						  <span>
+							  <img src="assets/images/icons/pd02-a.png" alt="Education" class="done">
+							  <img src="assets/images/icons/pd02.png" alt="Education" class="ndone">
+						  </span>
+						  <i><span>2</span></i>
+						  <b>Education</b>
+					  </li>
+					  <li class="completed">
+						  <span>
+							  <img src="assets/images/icons/pd03-a.png" alt="Work Experience" class="done">
+							  <img src="assets/images/icons/pd03.png" alt="Work Experience" class="ndone">
+						  </span>
+						  <i><span>3</span></i>
+						  <b>Work Experience</b>
+					  </li>
+					  <li class="completed">
+						  <span>
+							  <img src="assets/images/icons/pd04-a.png" alt="Address Check" class="done">
+							  <img src="assets/images/icons/pd04.png" alt="Address Check" class="ndone">
+						  </span>
+						  <i><span>4</span></i>
+						  <b>Address Check</b>
+					  </li>
+					  <li class="completed">
+						  <span>
+							  <img src="assets/images/icons/pd05-a.png" alt="Identity Check" class="done">
+							  <img src="assets/images/icons/pd05.png" alt="Identity Check" class="ndone">
+						  </span>
+						  <i><span>5</span></i>
+						  <b>Identity Check</b>
+					  </li>
+					  <li class="completed">
+						  <span>
+							  <img src="assets/images/icons/pd06-a.png" alt="Database Check" class="done">
+							  <img src="assets/images/icons/pd06.png" alt="Database Check" class="ndone">
+						  </span>
+						  <i><span>6</span></i>
+						  <b>Database Check</b>
+					  </li>
+					  <li class="active">
+						  <span>
+							  <img src="assets/images/icons/pd07-a.png" alt="LOA" class="done">
+							  <img src="assets/images/icons/pd07.png" alt="LOA" class="ndone">
+						  </span>
+						  <i><span>7</span></i>
+						  <b>LOA</b>
+					  </li>
+				  </ul>
+			  </div>
+		  </div>
+	  </section> -->
+	  <ngx-loading [show]="loading"></ngx-loading>
+	  <section id="intDet" class="container-fluid">
+		  <div class="personalDetails seven">
+			  <span class="topArw"></span>
+			  <div class="perDetForm">
+				  <div class="row">
+					  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						  <div class="loi">
+							  <h3>LOI (Letter of Authorization)</h3>
+							  <p class="note">(Please download the letter of authorization, sign and uplod it)</p>
+							  
+							  <!-- <input value="Download letter of Authorization" class="submitBtn btn" (click)="downloadFile('https://appstore.wipro.com/iverify/DownloadFileServlet?Operation=DownloadAuthorizationLetter&newIverifyFlag=Y&CompanyCode=WT&fName=LetterOfAuthorization.PDF&fType=pdf')" type="button"> -->
+							  <a class="submitBtn btn" href="javascrit:;" (click)="downloadLOA()">Download letter of Authorization</a>
+							  <!-- <a href="" >click</a> -->
+							  <div class="row">
+								  <div class="col-sm-6">
+									  <label for="file-upload" class="custom-file-upload">
+										  <i class="fa fa-cloud-upload"></i>  {{uploadFiles || 'Upload letter of authorization'}}
+									  </label>
+									  <input type="file" tabindex="0" aria-label="Upload Letter of Authorization" id="file-upload" name='upload_cont_img' ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)"  [uploadInput]="uploadInput" style="display:none"  onclick="value = null" multiple>
+
+									  <span class="docuRow" *ngIf="files && files[0] && files[0].name">
+										  {{files[0].name}}&nbsp;&nbsp; 
+										  <span >
+											<a  href="javascript:;" (click)="removeFile(files[0].id)">
+												<i class="fa fa-trash" aria-hidden="true"></i>
+											</a> 
+									  </span>
+									  &nbsp;
+									</span>
+								  </div>
+							  </div><br />
+							  
+						  </div>
+						  <div class="declareCheck">
+							  <label class="containerChkBx">
+								  I, hereby declare that the information given above is true to the best of my knowledge, information and belief. I fully understand that if any of the information given by me in this application is in any way false or incorrect, Wipro shall have the right to dismiss my candidature without notice and without assigning any reason, whatsoever.
+								  <input name="chkBoxPedigree" type="checkbox" tabindex="0" (click)="onClick()"  #checkBox1>
+								  <span class="checkmark"></span>
+							  </label>
+						  </div>
+						  <div class="container">
+								<div *ngIf="hasError">
+										<br>
+										<span [ngStyle]="{'color':hasError ? 'red' : 'green' }">
+											&nbsp;&nbsp;{{message}}
+										</span>
+									  </div>
+									  <br *ngIf="hasError">
+							  <input value="Submit" (click)="onSubmit()" class="submitBtn btn" type="button" role="button" [disabled]="!checked" tabindex="0" aria-label="Submit">
+						  </div>
+					  </div>
+				  </div>
+			  </div>
+		  </div>
+	  </section>
+
+	  <app-social-media></app-social-media>

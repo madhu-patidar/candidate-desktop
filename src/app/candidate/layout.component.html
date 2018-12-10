@@ -1,0 +1,4 @@
+<app-header></app-header>
+<app-alert-pop></app-alert-pop>
+<router-outlet (click)="onClick()" *ngIf="routerLoad" (activate)="onActivate($event)"></router-outlet>
+<app-footer></app-footer>

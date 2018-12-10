@@ -1,0 +1,122 @@
+<section class="changePasswordTop container-fluid">
+	<div class="row">
+		<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">&nbsp;</div>
+		<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 bg-blue">
+			<div class="jobs">
+				<div class="proPercent">
+					Your<br>
+					Profile is<br>
+					<span *ngIf="!!candidateDetails">{{ candidateDetails.profile}}%</span>
+					Completed
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="chgPswDetails container-fluid">
+	<div class="container">
+		<div class="chgPswImg">
+			<div class="userPhoto">
+					<img [src]="getProfilePic()" alt="">
+			</div>
+			<div class="userName"><span *ngIf="!!candidateDetails">{{ candidateDetails.candName }}</span><span *ngIf="!candidateDetails">Sachin Narkar</span></div>
+			<div class="userNumber">Resume Number: 
+				<span *ngIf="!!candidateDetails"> {{ candidateDetails.resumeNumber }}</span>
+			</div>
+			<div class="userDetails">
+					<div class="uAdd" *ngIf="!!candidateDetails">{{ candidateDetails.jobLocation  }}</div>
+				<div class="uMob" *ngIf="personalDetails">{{personalDetails.contactNumber}}</div>
+				<div class="uEmail" *ngIf="!!candidateDetails">{{ candidateDetails.candEmalId  }}</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="knowBetter container-fluid">
+	<div class="container">
+		<h1 class="bdrBtmy3"><span>Let's get to know you better.</span></h1>
+		<div class="change_password_form"><br />
+			<div class="row">
+				<div class="col-sm-12">
+					<p>Please update your profile with the latest information about your qualifications and experience for the evaluation process.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section id="personalDetailSteps" class="container-fluid">
+	<div class="container">
+		<div class="stepsDetails">
+		<ul>
+			<li [ngClass]="{'active': screenNumber == 1, 'dactive' : screenNumber != 1  &&  screenNumber < 7, 'completed':  screenNumber == 7  }">
+			<a [routerLink]="screenNumber == 1 || screenNumber == 7 ? null : '/candidates/my-profile/personal-details'">
+				<span>
+				<img src="assets/images/icons/pd01-a.png" alt="Personal Details" class="done">
+				<img [hidden]="screenNumber == displayEntity.length +1" src="assets/images/icons/pd01.png" alt="Personal Details" class="ndone">
+				</span>
+				<i><span>1</span></i>
+				<b style="color:white">Personal Details</b>
+			</a>
+			</li>
+			<li *ngFor="let entity of displayEntity;let i = index" [ngClass]="{'active': screenNumber == i+2, 'dactive' : screenNumber != i+2  &&  screenNumber < displayEntity.length +1, 'completed':  screenNumber == displayEntity.length +1 }">
+				<a [routerLink]="screenNumber <= i+2 || screenNumber == displayEntity.length +1 ? null : '/candidates/my-profile/' + getActiveUrl(entity.displayId)">
+				<span>
+					<img src="assets/images/icons/pd0{{i+2}}-a.png" alt="{{entity.displayName}}" class="done">
+					<img src="assets/images/icons/pd0{{i+2}}.png" alt="{{entity.displayName}}" class="ndone">
+				</span>
+				<i><span>{{i+2}}</span></i>
+				<b style="color:white">{{entity.displayName}}</b>
+				</a>
+			</li>
+			<!-- <li [ngClass]="{'active': screenNumber == 3, 'dactive' : screenNumber != 3  &&  screenNumber < 7, 'completed':  screenNumber == 7 }">
+				<a [routerLink]="screenNumber <= 3 || screenNumber == 7 ? null : '/candidates/my-profile/work-experience'">
+				<span>
+					<img src="assets/images/icons/pd03-a.png" alt="Work Experience" class="done">
+					<img src="assets/images/icons/pd03.png" alt="Work Experience" class="ndone">
+				</span>
+				<i><span>3</span></i>
+				<b style="color:white" >Work Experience</b>
+				</a>
+			</li>
+			<li [ngClass]="{'active': screenNumber == 4, 'dactive' : screenNumber != 4  &&  screenNumber < 7, 'completed':  screenNumber == 7 }">
+			<a [routerLink]="screenNumber <= 4 || screenNumber == 7 ? null : '/candidates/my-profile/address-check'">
+				<span>
+				<img src="assets/images/icons/pd04-a.png" alt="" class="done">
+				<img src="assets/images/icons/pd04.png" alt="" class="ndone">
+				</span>
+				<i><span>4</span></i>
+				<b style="color:white">Address Check</b>
+			</a>
+			</li>
+			<li [ngClass]="{'active': screenNumber == 5, 'dactive' : screenNumber != 5  &&  screenNumber < 7, 'completed':  screenNumber == 7 }">
+				<a [routerLink]="screenNumber <= 5 || screenNumber == 7 ? null : '/candidates/my-profile/identity-check'">
+				<span>
+					<img src="assets/images/icons/pd05-a.png" alt="Identity Check" class="done">
+					<img src="assets/images/icons/pd05.png" alt="Identity Check" class="ndone">
+				</span>
+				<i><span>5</span></i>
+				<b style="color:white">Identity Check</b>
+				</a>
+			</li>
+			<li [ngClass]="{'active': screenNumber == 6, 'dactive' : screenNumber != 6  &&  screenNumber < 7, 'completed':  screenNumber == 7 }">
+				<a [routerLink]="screenNumber <= 5 || screenNumber == 7 ? null : '/candidates/my-profile/identity-check'">
+					<span>
+						<img src="assets/images/icons/pd06-a.png" alt="Database Check" class="done">
+						<img src="assets/images/icons/pd06.png" alt="Database Check" class="ndone">
+					</span>
+					<i><span>6</span></i>
+					<b style="color:white">Database Check</b>
+				</a>
+			</li> -->
+			<!-- <li [ngClass]="{'active': screenNumber == 7, 'dactive' : screenNumber != 7 }">
+			<span>
+				<img src="assets/images/icons/pd07-a.png" alt="LOA" class="done">
+				<img src="assets/images/icons/pd07.png" alt="LOA" class="ndone">
+			</span>
+			<i><span>7</span></i>
+			<b>LOA</b>
+			</li> -->
+		</ul>
+		</div>
+	</div>
+	</section>

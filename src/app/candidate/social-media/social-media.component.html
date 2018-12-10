@@ -1,0 +1,78 @@
+<section id="social_media" class="container-fluid">
+    <div class="container">
+      <h3 class="bdrBtmy3"><span>Social Media</span></h3>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="wipro-social-media-content">
+          <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 stickysocialttlhgt">
+              <div class="stickysocialttl">
+                  <div>
+                    &nbsp;<a href="javascript:;" role="none" class="linktxt">Twitter</a>
+                    &nbsp;<a href="https://twitter.com/wiprocareers?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false" role="link" tabindex="0" aria-label="Follow on Twitter">Follow @wiprocareers</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                  </div>
+                  <a href="javascript:;" class="socialiconimg" role="none"><img src="assets/images/twitter.png" alt="Twitter"></a>
+              </div>
+              <carousel  [interval]="3000">
+                <slide *ngFor="let twitter of twitterFeedList">
+                  <a href="{{twitter.url}}">
+                    <div class="wipro-social-media-content-box">
+                      <div class="social_title">careers @Wipro</div>
+                      <div class="social_date">{{dateFormat(twitter.postedOn)}}</div>
+                      <div class="social_text">{{twitter.content}} </div>
+                    </div>
+                  </a>
+                </slide>
+              </carousel>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 stickysocialttlhgt">
+              <div class="stickysocialttl">
+                <div>
+                    &nbsp;<a href="javascript:;" role="none" class="linktxt">Facebook</a>
+                  <div class="fb-like" [attr.data-href]="fbUrl" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
+                </div>
+                <a href="javascript:;" role="none" class="socialiconimg"><img src="assets/images/slide-fb.png" alt="Facebook"></a>
+              </div>
+              <carousel [interval]="3000">
+                <slide *ngFor="let facebook of facebookFeedList">
+                  <a href="{{facebook.url}}">
+                    <div class="wipro-social-media-content-box">
+                      <div class="social_title">careers @Wipro</div>
+                      <div class="social_date">{{dateFormat(facebook.postedOn)}}</div>
+                      <div class="social_text">{{facebook.content}} </div>
+                    </div>
+                  </a>
+                </slide>
+              </carousel>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 stickysocialttlhgt">
+              <div class="stickysocialttl">
+                <div>
+                  <a href="javascript:;" role="none" class="linktxt">YouTube</a>
+                </div>
+                <a href="javascript:;" role="none" class="socialiconimg"><img src="assets/images/slide-youtube.png" alt="Youtube"></a>
+              </div>
+              <carousel [interval]="3000"  #carousel>
+                <slide *ngFor="let youtube of youTubeFeedList;let i = index">
+                  <div class="wipro-social-media-content-box">
+                    <div class="social_title">careers @Wipro</div>
+                    <div class="social_date">{{dateFormat(youtube.postedOn)}}</div>
+                    <div class="social_text youtubeimg" style="padding: 0;">
+                        <br>
+                    <youtube-player style="height:300px"
+                      [videoId]=" getEmbedId(youtube.url)"
+                      [height]="200"
+                      (ready)="savePlayer($event)"
+                      (change)="onStateChange($event)"
+                      ></youtube-player>
+                    </div>  
+                  </div>
+                </slide>
+              </carousel>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

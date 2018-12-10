@@ -1,0 +1,223 @@
+<div class="popupMainBx">
+		<div class="popup spad">
+		<div class="descBx">
+			<a href="javascript:;"  (click)="popCancel()" class="popClose"></a>
+			<h2><span>Self Declaration</span></h2>
+			<div class="sadCtnt">
+				<strong>Please select the disability/ies <span>(You can select one or more option)</span>:</strong>
+				<div class="optionBx">
+					<table class="table table-bordered table-hover">
+						<tbody>
+						<tr>
+							<td>
+							<label class="containerChkBx" tabindex="-1" aria-label="Blindness">Blindness
+								<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Blindness')"  value="Blindness" type="checkbox" tabindex="-1" >
+								<span class="checkmark"></span>
+							</label>
+							</td>
+						 <td>
+							<label class="containerChkBx" tabindex="-1" aria-label="Low-vision">Low-vision
+								<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Low-vision')"  value="Low-vision" type="checkbox" >
+								<span class="checkmark"></span>
+							</label>
+							</td>
+							<td>
+							<label class="containerChkBx" tabindex="-1" aria-label="Deafness">
+								<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Deafness')"  value="Deafness" type="checkbox" >
+								<span class="checkmark"></span>
+							</label>
+							</td>
+							<td>
+							<label class="containerChkBx" tabindex="-1" aria-label="Hard of Hearing">Hard of Hearing
+								<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Hard of Hearing')"  value="Hard of Hearing" type="checkbox" checked>
+								<span class="checkmark"></span>
+							</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+							<label class="containerChkBx" tabindex="-1" aria-label="Speech and language disability">Speech and language<br />disability
+								<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Speech and language')"  value="Speech and language" type="checkbox" >
+								<span class="checkmark"></span>
+							</label>
+							</td>
+						 <td>
+							<label class="containerChkBx" tabindex="-1" aria-label="Locomotor disability (Physical Disability)">Locomotor disability<br />(Physical Disability)
+								<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Locomotor disability (Physical Disability)')"  value="Locomotor disability (Physical Disability)" type="checkbox" >
+								<span class="checkmark"></span>
+							</label>
+							</td>
+							<td>
+							<label class="containerChkBx" tabindex="-1" aria-label="Dwarfism">Dwarfism
+								<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Dwarfism')"  value="Dwarfism" type="checkbox" >
+								<span class="checkmark"></span>
+							</label>
+							</td>
+							<td>
+							<label class="containerChkBx" tabindex="-1" aria-label="Cerebral palsy">Cerebral palsy
+								<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Cerebral palsy')"  value="Cerebral palsy" type="checkbox" checked>
+								<span class="checkmark"></span>
+							</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+							<label class="containerChkBx" tabindex="-1" aria-label="Muscular dystrophy">Muscular dystrophy
+								<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Muscular dystrophy')"  value="Muscular dystrophy" type="checkbox" >
+								<span class="checkmark"></span>
+							</label>
+							</td>
+						 <td>
+							<label class="containerChkBx" tabindex="-1" aria-label="Multiple sclerosis">Multiple sclerosis
+								<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Multiple sclerosis')"  value="Multiple sclerosis" type="checkbox" >
+								<span class="checkmark"></span>
+							</label>
+							</td>
+							<td>
+							<label class="containerChkBx" tabindex="-1" aria-label="Leprosy cured">Leprosy cured
+								<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Leprosy cured')"  value="Leprosy cured" type="checkbox" >
+								<span class="checkmark"></span>
+							</label>
+							</td>
+							<td>
+							<label class="containerChkBx" tabindex="-1" aria-label="Parkinsons disease">Parkinsons disease
+								<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Parkinsons disease')"  value="Parkinsons disease" type="checkbox" checked>
+								<span class="checkmark"></span>
+							</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+							<label class="containerChkBx" tabindex="-1" aria-label="Psycho-social disability (Mental illness)">Psycho-social disability<br />(Mental illness)
+								<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Psycho-social disability (Mental illness)')"  value="Psycho-social disability<br />(Mental illness)" type="checkbox" >
+								<span class="checkmark"></span>
+							</label>
+							</td>
+						 <td>
+							<label class="containerChkBx" tabindex="-1" aria-label="Intellectual disability">Intellectual disability
+								<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Intellectual disability')"  value="Intellectual disability" type="checkbox" >
+								<span class="checkmark"></span>
+							</label>
+							</td>
+							<td>
+							<label class="containerChkBx" tabindex="-1" aria-label="Specific learning disabilities">Specific learning disabilities
+								<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Specific learning disabilities')"  value="Specific learning disabilities" type="checkbox" >
+								<span class="checkmark"></span>
+							</label>
+							</td>
+							<td>
+							<label class="containerChkBx" tabindex="-1" aria-label="Autism spectrum disorder">Autism spectrum disorder
+								<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Autism spectrum disorder')"  value="Autism spectrum disorder" type="checkbox" checked>
+								<span class="checkmark"></span>
+							</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+							<label class="containerChkBx" tabindex="-1" aria-label="Hemophilia">Hemophilia
+								<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Hemophilia')"  value="Hemophilia" type="checkbox" >
+								<span class="checkmark"></span>
+							</label>
+							</td>
+						 <td>
+							<label class="containerChkBx" tabindex="-1" aria-label="Thalassemia">Thalassemia
+								<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Thalassemia')"  value="Thalassemia" type="checkbox" >
+								<span class="checkmark"></span>
+							</label>
+							</td>
+							<td>
+							<label class="containerChkBx" tabindex="-1" aria-label="Sickle cell disease">Sickle cell disease
+								<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Sickle cell disease')"  value="Sickle cell disease" type="checkbox" >
+								<span class="checkmark"></span>
+							</label>
+							</td>
+							<td>
+							<label class="containerChkBx" tabindex="-1" aria-label="Acid attack survivors">
+								<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Acid attack survivors')"  value="Acid attack survivors" type="checkbox" checked>
+								<span class="checkmark"></span>
+							</label>
+							</td>
+						</tr>					
+						<tr>
+							<td>
+							<label class="containerChkBx" tabindex="-1" aria-label="Chronic neurological conditions">Chronic neurological conditions
+								<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Chronic neurological conditions')"  value="Chronic neurological conditions" type="checkbox" >
+								<span class="checkmark"></span>
+							</label>
+							</td>
+							<td colspan="3">
+							<div class="row">
+								<div class="col-sm-2">
+									<label class="containerChkBx" tabindex="-1" aria-label="Any other">Any other
+										<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Any other')"  value="Any other" type="checkbox" (click)="onAnyOther()" #anyOther>
+										<span class="checkmark"></span>
+									</label>
+								</div>
+								<div class="col-sm-10" *ngIf="showAnyOther">
+									<div class="input-effect martp0">
+										<input class="inputFloatEffect" tabindex="-1" aria-label="Please specify here" value="" type="text" placeholder="" #inputField>
+										<label>Please specify here</label>
+										<span class="focus-border"></span>
+									</div>
+								</div>
+							</div>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="selfDecBx">
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="title">Do you  have disability certificate from the government authorized body<span>(if yes, please upload appropriate certificate/acknowledgment)</span></div>
+							<div class="martp0">
+								<label for="file-upload" class="custom-file-upload">
+									<i class="fa fa-cloud-upload"></i> Upload Image
+								</label>
+								<input id="file-upload" tabindex="-1" aria-label="Upload Image" name='upload_cont_img' type="file" style="display:none;">
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="title">Percentage of the Disability as mentioned in the certificate</div>
+							<div class="input-effect martp0">
+								<input class="inputFloatEffect" tabindex="-1" aria-label="Enter the percentage" value="" type="text" placeholder="">
+								<label>Enter the percentage</label>
+								<span class="focus-border"></span>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="title">Description about the disability<span>(Please provide adequate information about your disability which gives better information beyond the medical term / percentage)</span></div>
+							<div class="input-effect martp0">
+								<input class="inputFloatEffect" tabindex="-1" aria-label="" value="" type="text" placeholder="">
+								<label>Enter the description</label>
+								<span class="focus-border"></span>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="title">Type of reasonable accommodation support required for the interview/at work place later.<span>(For example: Screen reading software, Sign language interpretation, Modification of furniture, transport etc.) </span></div>
+							<div class="input-effect martp0">
+								<input class="inputFloatEffect" tabindex="-1" aria-label="Enter the description" value="" type="text" placeholder="">
+								<label>Enter the description</label>
+								<span class="focus-border"></span>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="title">List of personal assistive aids / devises used  by you to perform the job with ease<span>(For example: Pocket magnifier, Hearing aids, etc.)</span></div>
+							<div class="input-effect martp0">
+								<input class="inputFloatEffect" value="" tabindex="-1" aria-label="Enter the description" type="text" placeholder="">
+								<label>Enter the description</label>
+								<span class="focus-border"></span>
+							</div>
+						</div>
+						<div class="col-sm-6">&nbsp;</div>
+					</div>
+				</div>
+				<input type="button" value="submit"  (click)="onSubmit()"class="submitBtn btn" role="button" tabindex="-1" aria-label="Submit" />
+				<input type="button" value="cancel"  (click)="popCancel()" class="cancelBtn" role="button" tabindex="-1" aria-label="Cancel" />
+			</div>
+		</div>
+	</div></div>

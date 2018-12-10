@@ -1,0 +1,65 @@
+
+<div id="bgLayer" *ngIf="logout"></div>
+<div class="popupMainBx" *ngIf="logout">
+  <div class="popup" >
+    <div class="descBx">
+      <a href="javascript:;" (click)="cancel()" class="popClose" role="link" tabindex="-1" aria-label="Close Popup"></a>
+      <h2><span>Are you sure you want to logout?</span></h2>
+      <div class="msgBx">If you want to logout, click on confirm button<br /><br />Please confirm to proceed.</div>
+      <input type="button" value="confirm" (click)="candidateLogout()"  class="submitBtn btn" role="button" tabindex="-1" />
+      <input type="button" value="cancel" (click)="cancel()" class="cancelBtn" role="button" tabindex="-1" />
+    </div>
+  </div>
+</div>
+<header>
+	<div class="container-fluid menu-home">
+		<div class="navbar-table clear">
+			<div class="logo"><a routerLink="/candidates/dashboard" [routerLinkActive]="['disabled']" target="_self" role="link" aria-label="Wipro Logo" tabindex="0"><img src="assets/images/logo.png" alt="Wipro Logo" /><span>embark</span></a></div>
+			<div class="rightTpBar btn-group">
+				<!-- <div dropdown> -->
+            <div class="notificationIco">
+              <a href="javascript:;" id="navbardrop" (click)="onNotifactionBall()" role="link" tabindex="0" aria-label="Notification"><i class="far fa-bell"  ></i><strong>{{ notifications.length}}</strong></a>
+            </div>
+            <div class="threedot">
+              <a href="javascript:;"  (click)="onClickMenu()" id="navbardrop" role="link" tabindex="0" aria-label="More Links"><span>&nbsp;</span>
+            <div class="hoverDiv"  *ngIf="profileMenuToggle">
+              <div class="arrow"><div class="topArw">&nbsp;</div></div>
+              <ul>
+                <li class="username" *ngIf="!!candidateDetails">{{candidateDetails.candName}}</li>
+                <li class="icon myPro"><a routerLink="/candidates/my-profile" role="link" tabindex="-1" aria-label="My Profile">My Profile</a></li>
+                <li *ngIf="candidateDetails.jobCode !== 0 && candidateDetails.jobCode !== '0' &&  candidateDetails.statuscode !=='INSAP' && candidateDetails.statuscode !=='BANKED' && candidateDetails.statuscode !=='FAKE' " class="icon jobPro"><a routerLink="/candidates/job-profile" role="link" tabindex="-1" aria-label="Job Profile">Job Profile</a></li>
+                <li class="icon doItYor"><a routerLink="/candidates/do-it-yourself" role="link" tabindex="-1" aria-label="Do It Yourself">Do It Yourself</a></li>
+                <li class="icon jobBas"><a routerLink="/candidates/Job-basket" role="link" tabindex="-1" aria-label="Job basket">Job basket</a></li>
+                <li class="icon chaPas"><a routerLink="/candidates/change-password" role="link" tabindex="-1" aria-label="Change password">Change password</a></li>
+                <li class="icon logOut"><a href="javascript:;" (click)="onLogout()" role="link" tabindex="-1" aria-label="Log out">Log out</a></li>
+              </ul>
+            </div>
+            </a>
+          </div>
+            <div class="notification" *ngIf="notifactionsToggle">
+              <span class="topArw"></span>
+              <a href="javascript:;" (click)="onNotifactionBall()" class="popClose" role="link" tabindex="-1" aria-label="Close Popup"></a>
+              <div class="notifyBx">
+                <div class="clearfix tpCtnts">
+                  <div class="tpBellIcon"><i class="far fa-bell"></i></div>
+                  <div class="tpTtlTxt">Your notifications</div>
+
+                </div>
+                <ul>
+                  <li *ngIf="!!failureMessage">{{failureMessage}}</li>
+                  <li *ngFor="let notification of notifications">
+                    <!-- <a (click)="clickOnLink()" href="javascript:;" role="link" tabindex="-1" aria-label="View Notification"> -->
+                      {{ notification.notificationDesc }}<span>{{ notification.date }}</span>
+                    <!-- </a> -->
+                  </li>
+                </ul>
+                <a href="javascript:;" class="viewAllBtn" role="link" tabindex="-1" aria-label="View All Notification">view all</a>
+              </div>
+            </div>
+				<div class="profilePic">
+          <img [src]="getProfilePic()" alt="Profile Photo" />
+        </div>
+			</div>
+		</div>
+	</div>
+</header>

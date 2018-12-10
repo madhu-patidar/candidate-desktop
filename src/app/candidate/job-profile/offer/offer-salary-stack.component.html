@@ -1,0 +1,243 @@
+<!-- <app-loader [show]="loading"></app-loader> -->
+<div id="bgLayer" style="margin-top: -86px;" *ngIf="seekClarification || isDecline"></div>
+<div class="popupMainBx" *ngIf="seekClarification">
+  <div class="popup" >
+    <div class="descBx">
+      <form [formGroup]="commentsForm" (ngSubmit)="submitSeekClarification()">
+        <a href="javascript:;" (click)="cancel()" class="popClose" role="link" tabindex="-1" aria-label="Close Popup"></a>
+        <h2><span>Clarification:</span></h2>
+        <div class="msgBx">
+          <strong class="blk">In case you need any clarity on your job application, you can write to us here. We will get back to you at the earliest.</strong>
+          <div class="input-effect">
+              <input class="inputFloatEffect" [ngClass]="{'has-content': commentsForm.controls.comments.value.length >0} " [maxlength]="255" formControlName="comments" value="" type="text" placeholder="">
+            <label>Comments</label>
+            <span class="focus-border"></span>
+            <strong class="astrik">*</strong>
+          </div>
+          <div class="clearfix infoTxt">
+            <div class="fl">Your comments will be sent to recruiter and they will get back to you</div>
+            <div class="fr" *ngIf="commentsForm.controls.comments.value !== null">{{commentsForm.controls.comments.value.length}}/255 words</div>
+            <div class="fr" *ngIf="commentsForm.controls.comments.value === null">0/255 words</div>
+          </div>
+        </div>
+        <div *ngIf="hasError">
+          <p style="color:red">{{message}}</p>
+          <br>
+        </div>
+        <input  *ngIf="!!salaryDetails" type="button" value="submit" (click)="submitSeekClarification()" class="submitBtn btn" role="button" tabindex="-1" aria-label="Submit" />
+        <input type="button"  *ngIf="!!salaryDetails" value="cancel" (click)="cancel()" class="cancelBtn" role="button" tabindex="-1" aria-label="Cancel" />
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="popupMainBx" *ngIf="isDecline">
+    <div class="popup" >
+      <div class="descBx">
+        <form [formGroup]="commentsForm" (ngSubmit)="onDecline()">
+          <a href="javascript:;" (click)="cancel()" class="popClose" role="link" tabindex="-1" aria-label="Close Popup"></a>
+          <h2><span>Are you sure?</span></h2>
+          <div class="msgBx">
+            <strong class="blk">In case you need any clarity on your job application, you can write to us here. We will get back to you at the earliest.</strong>
+            <div class="input-effect">
+                <input class="inputFloatEffect" [ngClass]="{'has-content': commentsForm.controls.comments.value && commentsForm.controls.comments.value.length >0} " [maxlength]="255" formControlName="comments" value="" type="text" placeholder="">
+              <label>Comments</label>
+              <span class="focus-border"></span>
+              <strong class="astrik">*</strong>
+            </div>
+            <div class="clearfix infoTxt">
+              <div class="fl">Your comments will be sent to recruiter and they will get back to you</div>
+              <div class="fr" *ngIf="commentsForm.controls.comments.value !== null">{{commentsForm.controls.comments.value.length}}/255 words</div>
+              <div class="fr" *ngIf="commentsForm.controls.comments.value === null">0/255 words</div>
+            </div>
+          </div>
+          <div *ngIf="hasError">
+            <p style="color:red">{{message}}</p>
+            <br>
+          </div>
+          <input  *ngIf="!!salaryDetails" type="button" value="submit" (click)="onDecline()" class="submitBtn btn" role="button" tabindex="-1" aria-label="Submit" />
+          <input type="button"  *ngIf="!!salaryDetails" value="cancel" (click)="cancel()" class="cancelBtn" role="button" tabindex="-1" aria-label="Cancel" />
+        </form>
+      </div>
+    </div>
+  </div>
+
+<app-job-profile-header></app-job-profile-header>
+  <section id="intSchedule" class="container-fluid">
+    <div class="container">
+      <div class="resumeStatus">
+        <h2>Resume Status: <span>Offer Stack</span></h2>
+        <div class="resumeStage">
+          <span class="sc">Stage Completed</span>
+          <span class="cs">Current Stage</span>
+          <span class="ns">Next Stage</span>
+        </div>
+      </div>
+      <div class="schedule">
+        <ul>
+          <li class="completed">
+            <span>
+              <img src="assets/images/icons/to-screen.png" alt="To Screen" class="done">
+              <img src="assets/images/icons/to-screen-a.png" alt="To Screen" class="ndone">
+            </span>
+            <i><img src="assets/images/icons/done.png" alt="Done"></i>
+            <b>To Screen</b>
+          </li>
+          <li class="completed">
+            <span>
+              <img src="assets/images/icons/screened.png" alt="Screened" class="done">
+              <img src="assets/images/icons/screened-a.png" alt="Screened" class="ndone">
+            </span>
+            <i><img src="assets/images/icons/done.png" alt="Done"></i>
+            <b>Screened</b>
+          </li>
+          <li class="completed">
+            <span>
+              <img src="assets/images/icons/business-interview.png" alt="Buiness Interview" class="done">
+              <img src="assets/images/icons/business-interview-a.png" alt="Buiness Interview" class="ndone">
+            </span>
+            <i><img src="assets/images/icons/done.png" alt="Done"></i>
+            <b>Business Interview</b>
+          </li>
+          <li class="completed">
+            <span>
+              <img src="assets/images/icons/int-sche.png" alt="Interview Schedule" class="done">
+              <img src="assets/images/icons/int-sche-a.png" alt="Interview Schedule" class="ndone">
+            </span>
+            <i><img src="assets/images/icons/done.png" alt="Done"></i>
+            <b>Interview Schedule</b>
+          </li>
+          <li class="completed">
+            <span>
+              <img src="assets/images/icons/hr-interview.png" alt="HR interview" class="done">
+              <img src="assets/images/icons/hr-interview-a.png" alt="HR interview" class="ndone">
+            </span>
+            <i><img src="assets/images/icons/done.png" alt="Done"></i>
+            <b>HR Interview</b>
+          </li>
+          <li class="completed">
+            <span>
+              <img src="assets/images/icons/fitment.png" alt="Fitment" class="done">
+              <img src="assets/images/icons/fitment-a.png" alt="Fitment" class="ndone">
+            </span>
+            <i><img src="assets/images/icons/done.png" alt="Done"></i>
+            <b>Fitment</b>
+          </li>
+          <li class="active">
+            <span>
+              <img src="assets/images/icons/offer.png" alt="Offer" class="done">
+              <img src="assets/images/icons/offer-a.png" alt="Offer" class="ndone">
+            </span>
+            <i><img src="assets/images/icons/done.png" alt="Done"></i>
+            <b>Offer</b>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <!-- <section id="intDet" class="container-fluid"  *ngIf="!!failureMessage">
+      <div class="interviewDetails">
+        <span class="topArw"></span>
+           {{failureMessage}}
+           </div>
+  </section> -->
+  <section id="intDet" class="container-fluid" >
+    <div class="interviewDetails offerDetails sevenjb" >
+      <span class="topArw"></span>
+      <div class="congTxt"  *ngIf="!acceptedOffer">
+        <h2>Congratulations</h2>
+        <p>Your profile has been shortlisted and we look forward to having you onboard.<br><br>Keeping your skills and experience in consideration, we have proposed an offer for the role you have been shortlisted. Please accept it at the earliest.</p>
+      </div>
+      <div class="congTxt" *ngIf="acceptedOffer">
+          <h2>Congratulations</h2>
+          <p>We are in the process of generating your offer letter, based on your confirmation on the Salary Stack shared earlier.<br />We will get back to you shortly.</p>
+      </div>
+      <div class="salaryOffer" *ngIf="!!salaryDetails">
+        <h2><span>Salary Offer</span></h2>
+        <div class="salaryDetails">
+          <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+              <div class="jTitle">Resume Number:</div>
+              <div class="jDetails" *ngIf="!!salaryDetails">{{salaryDetails.resumeNumber}}</div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+              <div class="jTitle">Name:</div>
+              <div class="jDetails" *ngIf="!!candidateDetails">{{candidateDetails.candName}}</div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+              <div class="jTitle">Location:</div>
+              <div class="jDetails"  *ngIf="!!salaryDetails">{{salaryDetails.joiningLocation}}</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+              <div class="jTitle">Position:</div>
+              <div class="jDetails" *ngIf="!!salaryDetails">{{salaryDetails.designation}}</div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+              <div class="jTitle">Career Group:</div>
+              <div class="jDetails" *ngIf="!!salaryDetails">{{salaryDetails.careerBand}}</div>
+            </div>
+            <!-- <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+              <div class="jTitle">Relevant Experience:</div>
+              <div class="jDetails">62 Months</div>
+            </div> -->
+          </div>
+          <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+              <div class="jTitle">Career Stream:</div>
+              <div class="jDetails">Project Stream</div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+              &nbsp;
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+              &nbsp;
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="salarySpec" *ngIf="!!salaryDetails">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tbody>
+          <tr>
+            <th scope="col" width="250">Elements</th>
+            <th scope="col">Amount (in INR)</th>
+          </tr>
+          <tr *ngFor="let salary of salaryDetails.salary">
+            <span *ngIf="setMonthlyGross(salary)"></span>
+            <td width="250" *ngIf="salary.componentDescription !=='Monthly Gross'">{{salary.componentDescription}}</td>
+            <td *ngIf="salary.componentDescription !=='Monthly Gross'">{{salary.amount}}</td>
+          </tr>
+          <tr *ngIf="salaryDetails.bonus">
+            <td class="sbTotal" width="250">Bonus</td>
+            <td class="sbTotal">Amount</td>
+          </tr>
+          <tr *ngFor="let bonus of salaryDetails.bonus">
+            <td width="250">{{bonus.relocationType}}</td>
+            <td>{{bonus.relocationAmount }} (in {{bonus.relocationCurrency}})</td>
+          </tr>
+          <tr *ngIf="monthlyGross!== undefined">
+            <td class="mGross">{{monthlyGross.componentDescription }}</td>
+            <td class="mGross">{{monthlyGross.amount | number:'2.'}}</td>
+          </tr>
+          <tr *ngIf="monthlyGross !== undefined">
+            <td class="aGross">Annual Gross</td>
+            <td class="aGross">{{monthlyGross.amount * 12 | number:'2.'}}</td>
+          </tr> 
+           
+          </tbody>
+        </table>
+      </div>
+  
+      <div class="jobDetails noBdr padlftrgt0" *ngIf="!acceptedOffer && !!salaryDetails && salaryDetails.acceptStatus !== 'ACCEPT'">
+        <div class="input-effect has-content" *ngIf="!!salaryDetails">
+          <input class="inputFloatEffect" [(ngModel)]="AcceptComments"  [ngClass]="{'has-content':AcceptComments !== ''}" value="" type="text" placeholder="" #comments>
+          <label>Comments</label>
+          <span class="focus-border"></span>
+        </div>
+        <input value="ACCEPT"   *ngIf="!!salaryDetails"  (click)="onAccept()" class="submitBtn btn" type="button" role="button" tabindex="0" aria-label="Accept">&nbsp; <input value="Seek Clarification" (click)="onSeekClarification()" class="submitBtn btn seek" type="button" role="button" tabindex="0" aria-label="Seek Clarification"><input value="decline" (click)="openDeclinePop()" class="cancelBtn" type="button" role="button" tabindex="0" aria-label="Decline">
+      </div>
+    </div>
+  </section>
+

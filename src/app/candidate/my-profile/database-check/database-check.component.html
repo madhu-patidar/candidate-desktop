@@ -1,0 +1,61 @@
+
+<section class="breadCrumb container-fluid">
+  <i class="left"></i> &nbsp; <a routerLink="/candidates/dashboard">Dashboard</a>
+</section>
+<app-my-profile-header [screenNumber]="screenNumber" ></app-my-profile-header>
+<ngx-loading [show]="loading"></ngx-loading>
+<div>
+    <section id="intDet" class="container-fluid">
+        <div class="personalDetails	six">
+          <span class="topArw"></span>
+          <div class="container">
+              <app-commet-text-area *ngIf="!isEntityDisabled"></app-commet-text-area>
+            </div>
+          <div class="container" *ngFor="let subEntityExistingDetail of subEntityExistingDetails;let i = index">
+              <h5 *ngIf="i==0"> <strong>Database Check</strong></h5>
+              <p>(Name, Nationality, Date of Birth, Gender, Martial status, Fathers's name, Address details, Phone number)</p>
+              <p><span style="color:red" class="astrik">*</span>All the mentioned documents are mandatory for joining backgroung verification process </p>
+              <div class="container">
+                <form [formGroup]="formList[i]"  >
+                  <div class="row">
+                    <div *ngFor="let entity of entitiesList[i]" class="form-row col-md-4 inputLblBlk">
+                      <app-entity [entity]="entity" [form]="formList[i]"></app-entity>
+                    </div>
+                  </div>
+                </form>
+                <br>
+              </div>
+          </div>
+          <div *ngIf="showAddMoreEducation">
+            <div class="container">
+              <h5><strong>Database Check</strong></h5>
+              <p>(Name, Nationality, Date of Birth, Gender, Martial status, Fathers's name, Address details, Phone number)</p>
+              <p><span style="color:red" class="astrik">*</span>All the mentioned documents are mandatory for joining backgroung verification process </p>
+              <form (ngSubmit)="onSubmit()" [formGroup]="subEntityDetailsForm">
+                <div class="row">
+                  <div *ngFor="let entity of moreEntities" class="form-row col-md-4 inputLblBlk">
+                    <app-entity [entity]="entity" [form]="subEntityDetailsForm"></app-entity>
+                  </div>
+                </div><br />
+              </form>
+              <br>
+            </div> 
+            <hr><br>
+          </div>
+          <!-- <app-commet-text-area *ngIf="!isEntityDisabled"></app-commet-text-area> -->
+          <div class="container">
+              <div *ngIf="isFormInvalid || showSuccessMessage">
+                  <br>
+                  <span [ngStyle]="{'color':showSuccessMessage ? 'green' : 'red' }">
+                      &nbsp;&nbsp;{{message}}
+                  </span>
+                </div>
+                <br *ngIf="isFormInvalid || showSuccessMessage">
+            <input value="Save" (click)="onSubmit('Save')" class="submitBtn btn" type="button" role="button" tabindex="0" aria-label="Save">&nbsp;
+            <input value="Save & Next" (click)="onSubmit('Save & Next')" class="submitBtn btn" type="button" role="button" tabindex="0" aria-label="Save & Next">
+          </div>
+        </div>
+      </section>
+</div>
+
+ 

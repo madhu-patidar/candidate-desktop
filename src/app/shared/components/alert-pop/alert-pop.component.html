@@ -1,0 +1,18 @@
+<!-- <div *ngIf="alert" class="alert alert-{{alert.type}}">
+    <a href="javascript:0;" class="close" (click)="close()">&times;</a>
+    {{ alert.message }}
+  </div> -->
+
+  <div class="popupMainBx" *ngIf="alert">
+      <div class="popup">
+        <div class="descBx">
+          <a href="javascript:;" (click)="close()" class="popClose" role="link" tabindex="-1" aria-label="Close Popup"></a>
+          <h2 *ngIf="alert.type==='success'"><span>Success message</span></h2>
+          <h2 *ngIf="alert.type==='danger'"><span>Error message</span></h2>
+          <div class="msgBx" [ngStyle]="{'color':colors[alert.type]}" > 
+            {{alert.message}}
+          </div>
+          <input type="button" (click)="close()" value="Ok" class="cancelBtn" role="button" tabindex="-1" aria-label="No" />
+        </div>
+      </div>
+    </div>

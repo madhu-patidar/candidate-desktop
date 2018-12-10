@@ -1,0 +1,85 @@
+
+<section class="breadCrumb container-fluid">
+  <i class="left"></i> &nbsp; <a routerLink="/candidates/dashboard">Dashboard</a>
+</section>
+<app-my-profile-header [screenNumber]="screenNumber" ></app-my-profile-header>
+<ngx-loading [show]="loading"></ngx-loading>
+<div>
+    <section id="intDet" class="container-fluid">
+        <div class="personalDetails	six">
+          <span class="topArw"></span>
+          <div class="container">
+              <app-commet-text-area *ngIf="!isEntityDisabled"></app-commet-text-area>
+            </div>
+          <div class="container" *ngFor="let subEntityExistingDetail of subEntityExistingDetails;let i = index">
+              <h5 *ngIf="i==0"> <strong>Database Check</strong></h5>
+              <p>(Name, Nationality, Date of Birth, Gender, Martial status, Fathers's name, Address details, Phone number)</p>
+              <p><span style="color:red" class="astrik">*</span>All the mentioned documents are mandatory for joining backgroung verification process </p>
+              <div class="container">
+                <form [formGroup]="formList[i]"  >
+                  <div class="row">
+                    <div *ngFor="let entity of entitiesList[i]" class="form-row col-md-4 inputLblBlk">
+                      <app-entity [entity]="entity" [form]="formList[i]"></app-entity>
+                    </div>
+                  </div>
+                </form>
+                <h5><strong>Documents upload:</strong></h5>
+                <p><span class="astrik"></span>PNG/JPG/JPEG/PDF/DOC/HTML/MSG/DOCX/TEXT/GIF/MDI </p>
+                <br>
+                <div class="row">
+                  <div class="col-md-4" >
+                    <div class="uploadInputType">
+                      <label for="file-upload" class="custom-file-upload">
+                        <i class="fa fa-cloud-upload" ></i> Address Proof <span style="color:red" class="astrik">*</span>
+                      </label>
+                      <input tabindex="0" type="file" aria-label="Documents Upload"  id="file-upload" name='upload_cont_img' ngFileSelect [options]="options" (uploadOutput)="onUploadedDoc($event, 0)" [uploadInput]="uploadInputForAddressProof" style="color:transparent"  onclick="value = null" multiple>
+                    </div>
+                    <span class="docuRow" *ngFor="let file of filesForCurrentProof;let i = index"> &nbsp;{{file.name}} &nbsp; <span ><a href="javascript:;"><i (click)="removeFileFromAddressProof(file.id, i)" class="fa fa-trash" aria-hidden="true"></i></a> 
+                    </span>&nbsp;</span>
+                  </div>
+                </div>
+                <br>
+              </div>
+          </div>
+          <div *ngIf="showAddMoreEducation">
+            <div class="container">
+              <h5><strong>Drug test</strong></h5>
+              <p>(Name, Nationality, Date of Birth, Gender, Martial status, Fathers's name, Address details, Phone number)</p>
+              <p><span style="color:red" class="astrik">*</span>All the mentioned documents are mandatory for joining backgroung verification process </p>
+              <form (ngSubmit)="onSubmit()" [formGroup]="subEntityDetailsForm">
+                <div class="row">
+                  <div *ngFor="let entity of moreEntities" class="form-row col-md-4 inputLblBlk">
+                    <app-entity [entity]="entity" [form]="subEntityDetailsForm"></app-entity>
+                  </div>
+                </div><br />
+              </form>
+              <h5><strong>Documents upload:</strong></h5>
+              <p><span class="astrik"></span>PNG/JPG/JPEG/PDF/DOC/HTML/MSG/DOCX/TEXT/GIF/MDI </p>
+              <br>
+              <div class="row">
+                <div class="col-md-4" >
+                  <div class="uploadInputType">
+                    <label for="file-upload" class="custom-file-upload">
+                      <i class="fa fa-cloud-upload" ></i> Documents <span style="color:red" class="astrik">*</span>
+                    </label>
+                    <input tabindex="0" type="file" aria-label="Documents Upload"  id="file-upload" name='upload_cont_img' ngFileSelect [options]="options" (uploadOutput)="onUploadedDoc($event, 0)" [uploadInput]="uploadInputForAddressProof" style="color:transparent"  onclick="value = null" multiple>
+                  </div>
+                  <span class="docuRow" *ngFor="let file of filesForCurrentProof;let i = index"> &nbsp;{{file.name}} &nbsp; <span ><a href="javascript:;"><i (click)="removeFileFromAddressProof(file.id, i)" class="fa fa-trash" aria-hidden="true"></i></a> 
+                  </span>&nbsp;</span>
+                </div>
+              </div>
+              <br>
+            </div> 
+            <hr><br>
+          </div>
+          <!-- <app-commet-text-area *ngIf="!isEntityDisabled"></app-commet-text-area> -->
+          <div class="container">
+              <br *ngIf="isFormInvalid || showSuccessMessage">
+          <input value="Save" (click)="onSubmit('Save')" class="submitBtn btn" type="button" role="button" tabindex="0" aria-label="Save">&nbsp;
+          <input value="Save & Next" (click)="onSubmit('Save & Next')" class="submitBtn btn" type="button" role="button" tabindex="0" aria-label="Save & Next">
+        </div>
+        </div>
+      </section>
+</div>
+
+ 

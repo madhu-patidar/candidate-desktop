@@ -1,0 +1,295 @@
+<!-- <app-loader [show]="loading"></app-loader> -->
+<div id="bgLayer" style="margin-top: -86px;" *ngIf="uploadPhotoPop || rejectedPhotoGraphPop || selfDeclarationPopOpen || voluntaryEelfDeclarationPop"></div>
+
+<div class="popupMainBx" *ngIf="uploadPhotoPop">
+	<div class="popup uploadPhoto" >
+		<div class="descBx">
+			<a href="javascript:;" (click)="cancel()" class="popClose" tabindex="-1" role="link" aria-label="Popup Close"></a>
+			<h2><span>Upload photograph</span></h2>
+			<div class="msgBx bdrBtm">
+				<strong>Please upload soft copy of the new photograph as per the below norms. </strong>
+				<p>Photograph should be in .jpeg format.</p>
+				<p>Photograph should not be more than 6 months old.</p>
+				<p>Photograph accepted only with plain white background.</p>
+				<p>Photograph should not be wearing sun glasses.</p>
+				<p>Presence of scratch/mark or special filters should not be on the photo.</p>
+				<p>It should be an individual photograph.</p>
+				<p>Dress code in photo: Formal attire and should not be of the same color as the background. </p>
+				<p>Position of face: straight (looking forward camera).</p>
+				<p>Photograph should be passport size only.</p>
+				<p>Photograph file size should be greater than 30KB and less than 2MB.</p>
+			</div>
+			<div class="uploadFrmBx">
+				<div class="row">
+						
+					<div class="col-sm-8" *ngIf="hasError">
+						<span style="color:red">{{message}}</span>
+					</div>
+					<div class="col-sm-8">
+						<div class="uploadInputType">
+							<label for="file-upload" class="custom-file-upload">
+								<i class="fa fa-cloud-upload"></i> {{uploadFiles || 'Upload photograph'}}
+							</label>
+							<input id="file-upload" tabindex="-1" aria-label="Upload photograph" name='upload_cont_img' (change)="fileEvent($event)" type="file" style="display:none;">
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<img *ngIf="!base64textString" class="uploadPhotoBx default" src="{{getProfilePic()}}">
+						<img *ngIf="!!base64textString" class="uploadPhotoBx default" [src]="'data:image/jpg;base64,' + base64textString | safe">
+					</div>
+				</div>
+			</div>
+			<input type="button" value="submit" (click)="onPhotoSubmit()" class="submitBtn btn" role="button" tabindex="-1" aria-label="Submit" />
+			<input type="button" value="cancel" (click)="cancel()" class="cancelBtn" role="button" tabindex="-1" aria-label="Cancel" />
+		</div>
+	</div>
+</div>
+
+<div class="popupMainBx" *ngIf="rejectedPhotoGraphPop">
+	<div class="popup uploadPhoto" >
+		<div class="descBx">
+			<a href="javascript:;" (click)="popCancel()" class="popClose" tabindex="-1" role="link" aria-label="Popup Close"></a>
+			<h2><span>Upload photograph</span></h2>
+			<div class="msgBx bdrBtm">
+				<strong>Please upload soft copy of the new photograph as per the below norms. </strong>
+				<p>Photograph should be in .jpeg format.</p>
+				<p>Photograph should not be more than 6 months old.</p>
+				<p>Photograph accepted only with plain white background.</p>
+				<p>Photograph should not be wearing sun glasses.</p>
+				<p>Presence of scratch/mark or special filters should not be on the photo.</p>
+				<p>It should be an individual photograph.</p>
+				<p>Dress code in photo: Formal attire and should not be of the same color as the background. </p>
+				<p>Position of face: straight (looking forward camera).</p>
+				<p>Photograph should be passport size only.</p>
+				<p>Photograph file size should be greater than 30KB and less than 2MB.</p>
+			</div>
+			<div class="uploadFrmBx">
+				<div class="row">
+					<div class="col-sm-8">
+						<div class="uploadInputType">
+							<label for="file-upload" class="custom-file-upload">
+								<i class="fa fa-cloud-upload"></i>{{uploadFiles || 'Upload photograph'}} 
+							</label>
+							<input id="file-upload" (change)="fileEvent($event)" name='upload_cont_img' type="file" style="display:none;" tabindex="-1" aria-label="Upload photograph">
+						</div>
+						<div class="uploadPhotoStatus">
+							Status
+							<span class="rejected">Rejected</span>						
+						</div>
+						<div class="uploadPhotoRemark">
+							Remark
+							<span class="rejected">Photograph not as per guidelines</span>						
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<span class="uploadPhotoBx white" style="background-image:url('assets/images/sanjay-narkar.jpg');">&nbsp;</span>
+					</div>
+				</div>
+				<div class="table-responsive">          
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Date of process</th>
+								<th>Status</th>
+								<th>Remark</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr>
+								<td>12 Mar 2017</td>
+								<td>Rejected</td>
+								<td>Not as per guideline</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<input type="button" value="submit" (click)="onPhotoSubmit()" (click)="popCancel()" class="submitBtn btn" />
+			<input type="button" value="cancel" (click)="popCancel()" class="cancelBtn" />
+		</div>
+	</div>
+</div>
+
+<app-voluntary-self-declaration-pop *ngIf="voluntaryEelfDeclarationPop" (valueChange)='popDisplayNone($event)' ></app-voluntary-self-declaration-pop>
+
+<app-self-declaration-pop [disabilitiesArray]="disabilitiesArray" (selfDeclaration)='selfDeclaration($event)' *ngIf="selfDeclarationPopOpen"></app-self-declaration-pop>
+
+<section class="breadCrumb container-fluid">
+	<i class="left"></i> &nbsp; <a routerLink="/candidates/dashboard">Dashboard</a>
+</section>
+<app-my-profile-header [screenNumber]="1" ></app-my-profile-header>
+<ngx-loading [show]="loading"></ngx-loading>
+<section id="intDet" class="container-fluid">
+	<div class="personalDetails one">
+		<span class="topArw"></span>
+		<form [formGroup]="personalDetailsForm" form-inline>
+			<div class="perDetForm">
+				<div class="row">
+					<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+						<div class="proPhoto">
+							<img src="{{getProfilePic()}}" alt="Upload profile picture">
+						</div>
+						<div class="uploadBt">
+							<a href="javascript:;" (click)="openUploadPhotoPop()">
+								<img src="assets/images/icons/upload-profile-photo.png" alt="Upload profile picture">
+								<span>Upload profile picture</span>
+							</a>
+						</div>
+					</div>
+					<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+						<div class="row">
+							<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+								<div class="input-effect has-content">
+									<input class="inputFloatEffect has-content" formControlName="resumeNumber" value="7345942" type="text" placeholder="" tabindex="0" aria-label="Resume number">
+									<label>Resume number</label>
+									<span class="focus-border"></span>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+								<div class="input-effect has-content">
+									<input class="inputFloatEffect" value="" formControlName="skype_id" [ngClass]="{'has-content' : skypeId.value !==''}" value="" type="text" placeholder="" #skypeId  tabindex="0" aria-label="Skype ID">
+									<label>Skype ID</label>
+									<span class="focus-border"></span>
+								</div>
+							</div>
+							
+							<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+								<div class="residentCountry">
+								<!-- <label>Nationality </label> -->
+								<select class="form-control" formControlName="residentCountry"  tabindex="0" aria-label="Nationality" role="listbox">
+										<option>-- Select country --</option>
+									<option *ngFor="let country
+									of countyList" value="{{country.codesCode}}">{{country.codesDesc}}</option>
+								</select>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+								<div class="input-effect has-content">
+									<input class="inputFloatEffect has-content" formControlName="firstName" value="Sachin" type="text" placeholder="" tabindex="0" aria-label="First name">
+									<label>First name</label>
+									<span class="focus-border"></span>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+								<div class="input-effect has-content">
+									<input class="inputFloatEffect has-content" formControlName="lastName" value="Narkar" type="text" placeholder="" tabindex="0" aria-label="">
+									<label>Last name</label>
+									<span class="focus-border"></span>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+								<div class="input-effect has-content">
+									<input class="inputFloatEffect has-content" [ngClass]="{'error': personalDetailsForm.controls.fathersName.hasError('required')}" value="" formControlName="fathersName" type="text" placeholder="" tabindex="0" aria-label="Father's name" aria-required="true">
+									<label>Father's name <span class="astrik">*</span></label>
+									<span class="focus-border"></span>
+									<span ></span>
+									<!-- <span *ngIf="personalDetailsForm.controls.fathersName.hasError('required')" class="errorMsg">farther name can't be blanck</span> -->
+									<!-- <strong class="astrik">*</strong> -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" >
+						<!-- <label>Gender <span class="astrik">*</span></label>
+						<select class="form-control" formControlName="gender"  tabindex="0" aria-label="Gender" role="listbox" aria-required="true">
+							<option *ngFor="let gender of masterGenderList" value="{{gender.codesCode}}">{{gender.codesDesc}}</option>
+						</select> -->
+					</div>
+					<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+						<div class="input-effect has-content">
+							<input class="inputFloatEffect has-content" [ngModel]="date | date:'yyyy-MM-dd'"   formControlName="dob" type="date" [max]="maxDate" placeholder="" tabindex="0" aria-label="Date of birth">
+							<label>Date of birth</label>
+							<span class="focus-border"></span>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+						<div class="input-effect has-content">
+							<input class="inputFloatEffect has-content"  formControlName="mailId" value="sachin.narkar@gmail.com" type="text" placeholder="" tabindex="0" aria-label="Email ID">
+							<label>Email ID</label>
+							<span class="focus-border"></span>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+						<div class="input-effect has-content">
+							<input class="inputFloatEffect has-content" formControlName="contactNumber" value="+91 9034122770" type="text" placeholder="" tabindex="0" aria-label="Mobile number" aria-required="true">
+							<label>Mobile number <span class="astrik">*</span></label>
+							<span class="focus-border"></span>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="display:none">
+						<div class="input-effect has-content">
+							<input class="inputFloatEffect " [ngClass]="{'has-content' : birthLocation.value !==''}" value=""  formControlName="birthLocation" type="text" placeholder="" #birthLocation tabindex="0" aria-label="Birth location">
+							<label>Birth location</label>
+							<span class="focus-border"></span>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="display:none">
+						<div class="maritalStatus">
+						<label>Marital status <span class="astrik">*</span></label>
+						<select class="form-control" formControlName="marital_status" tabindex="0" aria-label="Marital status" role="listbox" aria-required="true">
+							<option *ngFor="let maritalStatus of masterMarritalStatusList" value="{{maritalStatus.codesCode}}">{{maritalStatus.codesDesc}}</option>
+						</select>
+						</div>
+					</div>
+				</div>
+				<div class="row" style="display:none">
+					<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+						<div class="input-effect has-content">
+							<input class="inputFloatEffect has-content"  formControlName="mailId" value="sachin.narkar@gmail.com" type="text" placeholder="" tabindex="0" aria-label="Email ID">
+							<label>Email ID</label>
+							<span class="focus-border"></span>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+						<div class="input-effect has-content">
+							<input class="inputFloatEffect has-content" formControlName="contactNumber" value="+91 9034122770" type="text" placeholder="" tabindex="0" aria-label="Mobile number" aria-required="true">
+							<label>Mobile number <span class="astrik">*</span></label>
+							<span class="focus-border"></span>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+						&nbsp;
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<div class="self" *ngIf="false">
+						<h3>Voluntary Self Declaration</h3>
+						<h4>As an equal opportunity employer, WIPRO has a responsibility to provide you with an opportunity to declare your medical condition- short-term or long-term and seek for reasonable support at work if necessary. It is the policy of Wipro to create a level playing field and ensure that all services, facilities and privileges are accessible for everyone</h4>
+						<p class="note">(Please Note: By you disclosing about your disability, it helps us to provide you the required reasonable accommodation support if necessary. This information will not be used to discriminate in anyway. This is maintained confidentially i.e., only the relevant people like the Recruiter, HR personnel and the manager may be informed.)</p>
+						<label class="rbt">Yes
+						<input type="radio" (click)="openSelfDeclarationPop()" name="radio2"  tabindex="0" aria-label="Self Declaration Yes">
+						<span class="checkmark"></span>
+						</label>
+						<label class="rbt">No
+						<input type="radio" name="radio2" #radio checked tabindex="0" aria-label="Self Declaration No">
+						<span class="checkmark"></span>
+						</label>
+				</div>
+				<br><br>
+					<p class="declare" *ngIf="false">
+						Voluntary self declaration of gender and sexual orientation <input value="Declare" class="cancelBtn" (click)="OpenVoluntaryEelfDeclarationPop()" type="button">
+					</p>
+						<div class="containser">
+						<div *ngIf="isFormInvalid || showSuccessMessage">
+							<br>
+							<span [ngStyle]="{'color':showSuccessMessage ? 'green' : 'red' }">
+								&nbsp;&nbsp;{{message}}
+							</span>
+						</div>
+						<br *ngIf="isFormInvalid || showSuccessMessage">
+							<input value="Save" (click)="onSubmit('Save')" class="cancelBtn" type="button" role="button" tabindex="0" aria-label="Save">&nbsp;
+							<input value="Save & Next" class="submitBtn btn" (click)="onSubmit('Save & Next')" type="button" role="button" tabindex="0" aria-label="Save & Next">
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</section>
+<app-social-media></app-social-media>
+

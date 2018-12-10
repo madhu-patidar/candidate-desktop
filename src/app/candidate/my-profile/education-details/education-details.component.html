@@ -1,0 +1,179 @@
+<!-- <app-loader [show]="loading"></app-loader> -->
+
+<section class="breadCrumb container-fluid">
+ <a routerLink="/candidates/dashboard"><i class="left"></i> &nbsp; Dashboard</a>
+</section>
+<app-my-profile-header [screenNumber]="screenNumber"></app-my-profile-header>
+<div>
+    <ngx-loading [show]="loading"></ngx-loading>
+    <section id="intDet" class="container-fluid">
+        <div class="personalDetails two">
+          <span class="topArw"></span>
+          <div class="container" *ngIf="(formList && formList.length > 0) || showAddMoreEducation">
+            <app-commet-text-area *ngIf="!isEntityDisabled"></app-commet-text-area>
+          </div>
+          <div class="container" *ngFor="let subEntityExistingDetail of subEntityExistingDetails;let i = index">
+            <!-- {{entitiesList[i] | json}} -->
+            <div *ngFor="let e of entitiesList[i]">
+              <h5 *ngIf="e.label === 'Education name'  && e.value === 'GR'"><strong>Graduation</strong></h5>
+              <h5 *ngIf="e.label === 'Education name'  && e.value === 'PGR'"><strong>Post Graduation</strong></h5>
+            </div>
+            <p><span style="color:red" class="astrik">*</span>All the mentioned documents are mandatory for joining backgroung verification process </p>
+            <div class="container">
+              <form [formGroup]="formList[i]"  >
+                <div class="row">
+                  <div *ngFor="let entity of entitiesList[i]" class="form-row col-md-4 inputLblBlk">
+                    <app-entity [entity]="entity" [form]="formList[i]"></app-entity>
+                  </div>
+                  <div class="form-rowsetDuration col-md-4 inputLblBlk" *ngIf="durationDetails !== undefined && durationDetails[i] !== undefined &&  durationDetails[i].fromDate !== undefined">
+                      <div class="input-effect has-content">
+                      <input class="inputFloatEffect has-content" [disabled]="isEntityDisabled" [value]="durationDetails[i].fromDate | date:'yyyy-MM-dd'"(input)="onChangeDate('fromDate', $event.target.value, i)" type="date" [max]="maxDate" placeholder="">
+                      <label>From Date<span style="color:red" class="astrik">*</span></label>
+                      <span class="focus-border"></span>
+                    </div>
+                  </div>
+                  <div class="form-roww col-md-4 inputLblBlk" *ngIf="durationDetails !== undefined && durationDetails[i] !== undefined && durationDetails[i].toDate !== undefined">
+                      <div class="input-effect has-content">
+                        <input [max]="maxDate" class="inputFloatEffect has-content" (input)="onChangeDate( 'toDate', $event.target.value, i)"  [disabled]="isEntityDisabled" [value]="durationDetails[i].toDate | date:'yyyy-MM-dd'" type="date" placeholder="" >
+                        <label>To Date<span style="color:red" class="astrik">*</span></label>
+                        <span class="focus-border"></span>
+                      </div>
+                  </div>
+                </div>
+              </form>
+              <h5 *ngIf="fileDetailsList[i] !== undefined && fileDetailsList[i].length > 0"><strong>Documents upload:</strong></h5>
+ 
+              <p  *ngIf="fileDetailsList[i] !== undefined && fileDetailsList[i].length > 0"><span class="astrik"></span>PNG / JPG / JPEG / PDF / DOC / HTML / MSG / DOCX / TEXT / GIF / MDI </p>
+              <br>
+              <div class="row">
+
+                <div class="col-md-4" *ngFor="let fileDetail of fileDetailsList[i];let inx = index" [hidden]="!(inx == 0 || (inx > 0 && fileDetail.sub_sequence !== fileDetailsList[i][inx -1 ].sub_sequence))">
+                
+                    <!-- {{fileDetail | json}} -->
+                  <div *ngIf="inx == 0 || (inx > 0 && fileDetail.sub_sequence !== fileDetailsList[i][inx -1 ].sub_sequence) ">
+                    <div *ngFor="let fileDetail2 of fileDetailsList[i];let ind = index">
+                      <div class="uploadInputType" *ngIf="inx == ind">
+                        <label for="file-upload" class="custom-file-upload">
+                          <i class="fa fa-cloud-upload" ></i> 
+                          <span *ngIf="inx === 0">Semester mark sheets </span>
+                          <span *ngIf="inx === 1"> Degree/Provisional Certificate </span>
+                          <span *ngIf="inx === 2">Additional document  </span>
+                        </label>
+                        <input type="file" [disabled]="isEntityDisabled" [hidden] = "isEntityDisabled" style="color: transparent !important;" id="file-upload" name='upload_cont_img' ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event, fileDetail)" [uploadInput]="uploadInput" multiple>
+                        <br>
+                      </div>
+                    </div>
+                    <span style="width:100%" *ngFor="let fileDetail2 of fileDetailsList[i];let index1 = index">
+                        <span class="docuRow" *ngIf="fileDetail.sub_sequence ===fileDetail2.sub_sequence">{{filesNameArray[i][index1]}}&nbsp;&nbsp; <span [hidden]="!filesNameArray[i][index1]" ><a [ngClass]="isEntityDisabled ? 'disabled' : ''"  href="javascript:;" (click)="removeExisingFile(i, index1)"><i class="fa fa-trash" aria-hidden="true"></i></a> 
+                        </span>&nbsp;</span>
+                      </span>
+                  </div>
+                </div>
+              </div>
+              
+              <br *ngIf="fileDetailsList[i] !== undefined && fileDetailsList[i].length > 0"><br *ngIf="fileDetailsList[i] !== undefined && fileDetailsList[i].length > 0">
+              <hr *ngIf="fileDetailsList[i] !== undefined && fileDetailsList[i].length > 0">
+            </div>
+          </div>
+          <div *ngIf="showAddMoreEducation">
+            <div class="container">
+              <h5><strong>Highest Education</strong></h5>
+              <p><span style="color:red" class="astrik">*</span>All the mentioned documents are mandatory for joining backgroung verification process </p>
+              <form (ngSubmit)="onSubmit()" [formGroup]="subEntityDetailsForm">
+                <div class="row">
+                  <div *ngFor="let entity of moreEntities" class="form-row col-md-4 inputLblBlk">
+                    <app-entity [entity]="entity" [form]="subEntityDetailsForm"></app-entity>
+                  </div>
+                  <div class="form-row2 col-md-4 inputLblBlk">
+                      <div class="input-effect has-content">
+                        <input class="inputFloatEffect has-content" (input)="onChangeDate( 'fromDate', $event.target.value, durationDetails.length-1, 'addMoreFromDate')" [max]="maxDate" type="date" placeholder="">
+                        <label>From Date<span style="color:red" class="astrik">*</span></label>
+                        <span class="focus-border"></span>
+                      </div>
+                  </div>
+                  <div class="form-row2 col-md-4 inputLblBlk">
+                      <div class="input-effect has-content">
+                        <input class="inputFloatEffect has-content" (input)="onChangeDate( 'toDate', $event.target.value, durationDetails.length-1, 'addMoreToDate')" [max]="maxDate" type="date" placeholder="">
+                        <label>To Date<span style="color:red" class="astrik">*</span></label>
+                        <span class="focus-border"></span>
+                      </div>
+                    </div>
+                </div><br />
+              </form>
+              <hr>
+                  
+              <h5><strong>Documents upload:</strong></h5>
+              <p><span class="astrik"></span>PNG / JPG / JPEG / PDF / DOC / HTML / MSG / DOCX / TEXT / GIF / MDI </p>
+              <br>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="uploadInputType">
+                    <label for="file-upload" class="custom-file-upload">
+                      <i class="fa fa-cloud-upload" ></i> All semester marks sheet <span style="color:red">*</span> 
+                    </label>
+                      <input type="file"  id="file-upload" name='upload_cont_img' title="your text" style="color: transparent;" ngFileSelect [options]="optionsForMarksheet" (uploadOutput)="onMarksheetsUploaded($event)" [uploadInput]="uploadInputForMarkSheet"  onclick="value = null"  multiple>
+                    </div>
+                    <br>
+                    <span class="docuRow" *ngFor="let file of filesForMarkSheet;let i = index"> &nbsp;{{file.name}} &nbsp; <span  ><a  href="javascript:;"><i (click)="removeFile(file.id, i)" class="fa fa-trash" aria-hidden="true"></i></a> 
+                    </span>&nbsp;</span>
+                    <!-- <span>dsfdsf</span> -->
+                </div>
+
+                  <div class="col-md-4">
+                    <div class="uploadInputType">
+                      <label for="file-upload" class="custom-file-upload">
+                        <i class="fa fa-cloud-upload" ></i> Degree/Provisional Certificate<span style="color:red">*</span> 
+                      </label>
+                      <input style="color: transparent;" onclick="value = null" type="file"  id="file-upload" name='upload_cont_img' ngFileSelect [options]="optionsForDegree" (uploadOutput)="onDegreeUploaded($event)" [uploadInput]="uploadInputForDegree"   multiple>
+                      </div>
+                      <br>
+                      <span class="docuRow" *ngFor="let file of filesForDegree;let i = index"> &nbsp;{{file.name}} &nbsp; <span ><a href="javascript:;"><i (click)="removeFileFromDegree(file.id, i)" class="fa fa-trash" aria-hidden="true"></i></a> 
+                      </span>&nbsp;</span>
+                  </div>
+
+                  <div class="col-md-4">
+                      <div class="uploadInputType">
+                        <label for="file-upload" class="custom-file-upload">
+                          <i class="fa fa-cloud-upload" ></i>Additional document 
+                        </label>
+                        <input style="color: transparent;" type="file"  id="file-upload" name='upload_cont_img' ngFileSelect [options]="optionsForDegree" (uploadOutput)="onAddinalDocsUploaded($event)" [uploadInput]="uploadInputForAdditonalDucuments"  #fileInputViewChild multiple>
+                       </div>
+                       <br>
+                       <span class="docuRow" *ngFor="let file of filesForAdditonalDucuments;let i = index"> &nbsp;{{file.name}} &nbsp; <span><a href="javascript:;"><i (click)="removeFileFromAdditonalDucuments(file.id, i)" class="fa fa-trash" aria-hidden="true"></i></a> 
+                       </span>&nbsp;</span>
+                    </div>
+              </div>
+            </div>
+            <br>
+            <hr>
+            <br> 
+          </div>
+          
+          <div class="container">
+            <input *ngIf="!showAddMoreEducation" style="width: 280px" value="ADD HIGHEST EDUCATION"   (click)="addGraduation()" class="submitBtn btn" type="button">
+            <input *ngIf="showAddMoreEducation" style="width: 280px" value="REMOVE HIGHEST EDUCATION"   (click)="RemoveGraduation()" class="submitBtn btn" type="button">
+          </div>
+          <br>
+          <hr>
+          <div class="container" *ngIf="(showAddMoreEducation || (entitiesList && entitiesList.length > 0))">
+            <div *ngIf="isFormInvalid || showSuccessMessage">
+              <br>
+              <span [ngStyle]="{'color':showSuccessMessage ? 'green' : 'red' }">
+                  &nbsp;&nbsp;{{message}}
+              </span>
+            </div>
+            <br *ngIf="isFormInvalid || showSuccessMessage">
+            <input value="Save" (click)="onSubmit('Save')" class="submitBtn btn" type="button">&nbsp;
+            <input value="Save & Next" (click)="onSubmit('Save & Next')" class="submitBtn btn" type="button">
+          </div>
+          <!-- <div class="container" *ngIf="isEntityDisabled">
+              <input value="NEXT"  (click)="NavigateToNext()" class="submitBtn btn" type="button">
+          </div> -->
+        </div>
+      </section>
+</div>
+
+
+
+
+      

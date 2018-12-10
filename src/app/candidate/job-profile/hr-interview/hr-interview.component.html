@@ -1,0 +1,386 @@
+<!-- pop start -->
+<!-- <app-loader [show]="loading"></app-loader> -->
+<div id="bgLayer" style="margin-top: -86px;" *ngIf="!!confirmMessage || !!declineMessage || differentInterviewSlot"></div>
+
+<!-- Need a different interview slot pop start -->
+<div class="popupMainBx" *ngIf="differentInterviewSlot">
+	<div class="popup" *ngIf="differentInterviewSlot">
+		<div class="descBx">
+			<form [formGroup]="commentsForm" (ngSubmit)="onNewTimeSlotSelected()" >
+			<a href="javascript:;" (click)="cancle()" class="popClose" role="link" tabindex="-1" aria-label="Close Popup"></a>
+			<h2><span>Need a different interview slot</span></h2>
+			<div class="msgBx">
+				<strong class="blk">Please provide appropriate reason in below comments box</strong>
+				<div class="input-effect">
+					<input class="inputFloatEffect" [ngClass]="{'has-content': commentsForm.controls.comments.value.length >0} " [maxlength]="255" formControlName="comments" value="" type="text" placeholder="">
+					<label>Comments</label>
+					<span class="focus-border"></span>
+					<strong class="astrik">*</strong>
+				</div>
+				<div class="clearfix infoTxt">
+					<div class="fl">Your comments will be sent to recruiter and they will get back to you</div>
+					<div class="fr" *ngIf="commentsForm.controls.comments.value !== null">{{commentsForm.controls.comments.value.length}}/255 words</div>
+					<div class="fr" *ngIf="commentsForm.controls.comments.value === null">0/255 words</div>
+				</div>
+			</div>
+			<input type="button" value="submit" [disabled]="commentsForm.invalid" (click)="onNewTimeSlotSelected()" class="submitBtn btn" role="button" tabindex="-1" aria-label="Submit" />
+			<input type="button" value="cancel" (click)="cancle()" class="cancelBtn" role="button" tabindex="-1" aria-label="Cancel" />
+		</form>
+		</div>
+	</div>
+</div>
+<!-- Need a different interview slot pop end -->
+
+
+<!-- Gatepass Generation Message pop start -->
+<div class="popupMainBx" *ngIf="!!confirmMessage">
+	<div class="popup" >
+		<div class="descBx">
+			<a href="javascript:;" (click)="cancle()" class="popClose" role="link" tabindex="-1" aria-label="Close Popup"></a>
+			<h2><span>Guest Pass Information</span></h2>
+			<div class="msgBx">Your guest pass will be shared shortly.</div>
+			<input type="button" value="ok" (click)="cancle()"  class="submitBtn btn" role="button" tabindex="-1" aria-label="Ok" />
+		</div>
+	</div>
+</div>
+
+<!-- Gatepass Generation Message Modal pop end -->
+
+<!--Interview Schedule Decline Confirmation Message pop start -->
+<div class="popupMainBx" *ngIf="!!declineMessage">
+	<div class="popup" >
+		<div class="descBx">
+			<a href="javascript:;" (click)="cancle()" class="popClose" role="link" tabindex="-1" aria-label="Close Popup"></a>
+			<h2><span>Decline Interview</span></h2>
+			<div class="msgBx">Your application will be withdrawn on your decline action. Are you sure want to withdraw the job application? </div>
+			<input type="button" (click)="onDecline()" value="confirm" class="submitBtn btn" role="button" tabindex="-1" aria-label="Confirm" />
+			<input type="button" (click)="cancle()" value="cancel" class="cancelBtn" role="button" tabindex="-1" aria-label="Cancel" />
+		</div>
+	</div>
+</div>
+
+<!--Interview Schedule Decline Confirmation Message pop end -->
+
+<!-- special-assistance-declaration start -->
+<app-special-assistance-declaration [disabilitiesArray]="disabilitiesArray" (declaredSpecialAssistance)="declaredSpecialAssistance($event)" *ngIf='specialAssistanceDeclaration'></app-special-assistance-declaration>
+<!-- special-assistance-declaration end -->
+<!-- pop end -->
+
+
+<!-- Job profile start -->
+<app-job-profile-header></app-job-profile-header>
+<section id="intSchedule" class="container-fluid">
+	<div class="container">
+		<div class="resumeStatus">
+			<h2>Resume Status: <span>Interview Schedule</span></h2>
+			<div class="resumeStage">
+				<span class="sc">Stage Completed</span>
+				<span class="cs">Current Stage</span>
+				<span class="ns">Next Stage</span>
+			</div>
+		</div>
+		<div class="schedule">
+			<ul>
+				<li class="completed">
+					<span>
+						<img src="assets/images/icons/to-screen.png" alt="To Screen" class="done">
+						<img src="assets/images/icons/to-screen-a.png" alt="To Screen" class="ndone">
+					</span>
+					<i><img src="assets/images/icons/done.png" alt="Done"></i>
+					<b>To Screen</b>
+				</li>
+				<li class="completed">
+					<span>
+						<img src="assets/images/icons/screened.png" alt="Screened" class="done">
+						<img src="assets/images/icons/screened-a.png" alt="Screened" class="ndone">
+					</span>
+					<i><img src="assets/images/icons/done.png" alt="Done"></i>
+					<b>Screened</b>
+				</li>
+				<li class="completed">
+					<span>
+						<img src="assets/images/icons/business-interview.png" alt="Business Interview" class="done">
+						<img src="assets/images/icons/business-interview-a.png" alt="Business Interview" class="ndone">
+					</span>
+					<i><img src="assets/images/icons/done.png" alt="Done"></i>
+					<b>Business Interview</b>
+				</li>
+				<li class="completed">
+					<span>
+						<img src="assets/images/icons/int-sche.png" alt="Interview Schedule" class="done">
+						<img src="assets/images/icons/int-sche-a.png" alt="Interview Schedule" class="ndone">
+					</span>
+					<i><img src="assets/images/icons/done.png" alt="Done"></i>
+					<b>Interview Schedule</b>
+				</li>
+				<li class="active">
+					<span>
+						<img src="assets/images/icons/hr-interview.png" alt="HR Interview" class="done">
+						<img src="assets/images/icons/hr-interview-a.png" alt="HR Interview" class="ndone">
+					</span>
+					<i><img src="assets/images/icons/done.png" alt="Done"></i>
+					<b>HR Interview</b>
+				</li>
+				<li class="dactive">
+					<span>
+						<img src="assets/images/icons/fitment.png" alt="Fitment" class="done">
+						<img src="assets/images/icons/fitment-a.png" alt="Fitment" class="ndone">
+					</span>
+					<i><img src="assets/images/icons/done.png" alt="Done"></i>
+					<b>Fitment</b>
+				</li>
+				<li class="dactive">
+					<span>
+						<img src="assets/images/icons/offer.png" alt="Offer" class="done">
+						<img src="assets/images/icons/offer-a.png" alt="Offer" class="ndone">
+					</span>
+					<i><img src="assets/images/icons/done.png" alt="Done"></i>
+					<b>Offer</b>
+				</li>
+			</ul>
+		</div>
+	</div>
+</section>
+<ngx-loading [show]="loading"></ngx-loading>
+<section id="intDet" class="container-fluid" *ngIf="!!message">
+		<div class="interviewDetails fivejb">
+			<span class="topArw"></span>
+			<h2><span>HR Interview Details</span></h2>
+			<div class="jobDetails">
+				<h2>{{message}}</h2>
+			</div>
+		</div>
+</section>
+
+<section id="intDet" class="container-fluid" *ngIf="!!interviewDetails" >
+	<div class="interviewDetails fivejb">
+		<span class="topArw"></span>
+		<h2><span>HR Interview Details</span></h2>
+		<div class="jobDetails">
+			<h3>Job Details</h3>
+			<div class="row">
+				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+					<div class="jTitle">Interview title:</div>
+					<div class="jDetails">{{ interviewDetails.jobTitle }}</div>
+				</div>
+				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+					<div class="jTitle">Job location:</div>
+					<div class="jDetails">{{ interviewDetails.jobLocation }}</div>
+				</div>
+				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+					&nbsp;
+				</div>
+			</div>
+		</div>
+		<div class="jobDetails" *ngIf="!!interviewDetails">
+			<h3>Contact Details</h3>
+			<div class="row">
+				<div *ngIf="interviewDetails.recruiterName" class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+					<div class="jTitle" >Contact person:</div>
+					<div class="jDetails"> {{ interviewDetails.recruiterName }}</div>
+				</div>
+				<div *ngIf="interviewDetails.recruiterEmail" class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+					<div class="jTitle">Email ID:</div>
+					<div class="jDetails">{{ interviewDetails.recruiterEmail }}</div>
+				</div>
+				<!-- <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+					<div class="jTitle">Mobile number:</div>
+					<div class="jDetails">+91 90388119</div>
+				</div> -->
+			</div>
+		</div>
+		<div class="jobDetails" *ngIf="!!interviewDetails">
+			<h3>Interview Slots</h3>
+			<div class="row" *ngIf="!finalSlotSelected && !declinedTimeslot">
+				<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+					<div class="jDate">
+						<label class="rbt" *ngIf="!!interviewDetails && !hasBlank(interviewDetails.interviewDate1, interviewDetails.interviewDate1)">{{  interviewDetails.interviewDate1 }}, {{  interviewDetails.interviewTime1 }}
+						  <input type="radio" (click)="onDateSelect(interviewDetails.interviewDate1);onDateSelectTime(interviewDetails.interviewTime1);" checked="checked" name="radio">
+						  <span class="checkmark"></span>
+						</label>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+					<div class="jDate">
+							<!-- *ngIf="!hasBlank(interviewDetails.interviewDate3, interviewDetails.interviewDate3)" -->
+						<label class="rbt" *ngIf="!!interviewDetails && !hasBlank(interviewDetails.interviewDate2, interviewDetails.interviewDate2)">{{ interviewDetails.interviewDate2 }}, {{ interviewDetails.interviewTime2 }}
+						  <input type="radio" (click)="onDateSelect(interviewDetails.interviewDate2);onDateSelectTime(interviewDetails.interviewTime2);" name="radio">
+						  <span class="checkmark"></span>
+						</label>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+					<div class="jDate">
+						<label class="rbt" *ngIf="!!interviewDetails && !hasBlank(interviewDetails.interviewDate3, interviewDetails.interviewDate3)">{{ interviewDetails.interviewDate3 }}, {{ interviewDetails.interviewTime3 }}
+						  <input type="radio" (click)="onDateSelect(interviewDetails.interviewDate3);onDateSelectTime(interviewDetails.interviewTime3);" name="radio">
+						  <span class="checkmark"></span>
+						</label>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+					&nbsp;
+				</div>
+			</div>
+			
+			<!-- Job Profile - Interview Schedule Decline Confirmation Message start -->
+
+      		<div class="row" *ngIf="finalSlotSelected">
+				<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+					<div class="jTitle">Selected slot:</div>
+					<div class="jDetails">{{ this.selectInterviewNewDate }}, {{ this.selectInterviewNewTime }}</div>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+					&nbsp;
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+					&nbsp;
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+					&nbsp;
+				</div>
+			</div>
+		<!-- Job Profile - Interview Schedule Decline Confirmation Message end -->
+
+		<!-- Job Profile - Interview Schedule Details New Time Slot Available start  -->
+			<p *ngIf="declinedTimeslot" class="newTimeSlot">As per your previous request new time slot allotted (Copy needs to be change)  </p>
+			<div class="row" *ngIf="declinedTimeslot">
+
+				<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" *ngIf="(interviewDetails.interviewDate1 != undefined || interviewDetails.interviewTime1 != undefined)  && !hasBlank(interviewDetails.interviewDate1, interviewDetails.interviewDate1)">
+					<div class="jDate">
+						<label class="rbt">{{ interviewDetails.interviewDate1 }}, {{ interviewDetails.interviewTime1 }}
+						  <input type="radio" checked="checked" name="radio">
+						  <span class="checkmark"></span>
+						</label>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" *ngIf="(interviewDetails.interviewDate2 != undefined || interviewDetails.interviewTime2 != undefined) && !hasBlank(interviewDetails.interviewDate2, interviewDetails.interviewDate2)">
+					<div class="jDate">
+						<label class="rbt">ertretert{{ interviewDetails.interviewDate2 }}, {{ interviewDetails.interviewTime2 }}
+						  <input type="radio" name="radio">
+						  <span class="checkmark"></span>
+						</label>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" *ngIf="(interviewDetails.interviewDate2 != undefined || interviewDetails.interviewTime2 != undefined) && !hasBlank(interviewDetails.interviewDate3, interviewDetails.interviewDate3)">
+					<div class="jDate">
+						<label class="rbt">xcxc{{ interviewDetails.interviewDate3 }}, {{ interviewDetails.interviewTime3 }}
+						  <input type="radio" name="radio">
+						  <span class="checkmark"></span>
+						</label>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+					&nbsp;
+				</div>
+			</div>
+
+			<div class="row" *ngIf="declinedTimeslot" >
+				<div class="timeHistory" *ngIf="declinedTimeslot">
+				<h3>Declined timeslot history <span>(Copy needs to be change)  </span></h3>
+				<div class="dicDetails">
+					<div class="jTitle">Interview title:</div>
+					<div class="jDetails">
+						<span>{{ interviewDetails.interviewDate1 }}, {{ interviewDetails.interviewTime1 }}</span>
+						<span>dfgdgdfgfd{{ interviewDetails.interviewDate2 }}, {{ interviewDetails.interviewTime2 }}</span>
+						<span *ngIf="hasBlank(interviewDetails.interviewDate3, interviewDetails.interviewDate3)">{{ interviewDetails.interviewDate3 }}, {{ interviewDetails.interviewTime3 }}</span></div>
+				</div>
+				<div class="dicDetails">
+					<div class="jTitle">Reason:</div>
+					<div class="jDetails">{{comments}}</div>
+				</div>
+				<!-- <div class="dicDetails">
+					<div class="jTitle">Declined on:</div>
+					<div class="jDetails"><span>10/06/2018</span></div>
+				</div> -->
+				</div>
+			</div>
+		<!-- Job Profile - Interview Schedule Details New Time Slot Available end  -->
+		</div>
+
+
+		<div class="jobDetails">
+			<h3>Interview Venue</h3>
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="jAdd" *ngIf="!!interviewDetails">
+						<span>Address:</span>
+						{{interviewDetails.interviewVenue}}
+					</div>
+					<div class="jMap venueAdd" id="map_canvas">
+						</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="jobDetails">
+				<h3 *ngIf="!submitted || disabilitiesArray.length > 0 ">Special Assistance Declaration</h3>
+				<div class="sad" *ngIf="!submitted">
+					<p>Do you need any assistance service on your day of interview, once you are in Wipro campus?</p>
+					<label class="rbt">Yes
+						<input type="radio" name="radio2" [checked]="disabilitiesArray && this.disabilitiesArray.length > 0" (click)="onSpecialAssistanceDeclaration()">
+						<span class="checkmark"></span>
+					</label>
+					<label class="rbt">No
+						<input type="radio" name="radio2" (click)="noDisabilities()" [checked]="!(disabilitiesArray && this.disabilitiesArray.length > 0)" #radio >
+						<span class="checkmark"></span>
+					</label>
+					<p *ngIf="disabilitiesArray.length > 0 && disabilityList && !noRedioButtoChecked"><span>Assistance required:</span>
+						{{disabilityList}}
+					</p>
+					<p *ngIf="disabilitiesArray.length > 0 && !disabilityList && !noRedioButtoChecked"><span>Assistance required:</span>
+						{{disabilitiesArray | arrayToString}}
+					</p>
+				  </div>
+				  <div class="sad" *ngIf="submitted">
+					<p *ngIf="disabilitiesArray.length > 0 && disabilityList"><span>Assistance required:</span>
+						{{disabilityList}}
+					</p>
+					<p *ngIf="disabilitiesArray.length > 0 && !disabilityList"><span>Assistance required:</span>
+						<span *ngFor="let d of disabilitiesArray;let i = index">
+							{{d}}
+							<span *ngIf="i < disabilitiesArray.length-1">,</span>
+						</span>
+					</p>
+				  </div>
+			</div>
+		
+		<!-- Available Gate pass start  -->
+
+    <!-- <div class="jobDetails noBdr" *ngIf="GatepassAvailable" >
+      <h3>Getepass</h3>
+      <div class="sad">
+        <p><span>Gatepass status:</span>
+			Your Guest Pass has been approved.
+        </p>
+        <div class="qrcode"><img src="assets/images/qrcode.png" alt="QR Code"></div>
+        <input value="download" class="submitBtn btn" type="button" role="button" tabindex="0" aria-label="Download">
+      </div>
+		</div> -->
+
+		<!-- Available Gate pass end  -->
+		
+		<!-- Pending gate pass start  -->
+
+    <!-- <div class="jobDetails noBdr" *ngIf="gatepassPending || submitted">
+      <h3>Getepass</h3>
+      <div class="sad">
+        <p><span>Gatepass status:</span>
+          Thalassemia<br>
+          Your Gate Pass is currently under process. You will be notified once it is approved. 
+        </p>
+      </div>
+		</div> -->
+		
+		<!-- Pending gate pass end  -->
+
+		<div class="jobDetails noBdr" *ngIf="!submitted">
+			<input value="submit" (click)="onInterviewDetailsSubmitted('ACCEPT')" class="submitBtn btn" type="button" role="button" tabindex="0" aria-label="Submit">
+			<input value="decline" (click)="decline()" class="cancelBtn" type="button" role="button" tabindex="0" aria-label="Decline">
+		</div>
+  </div>
+</section>
+
+<!-- Job profile end -->
+
+

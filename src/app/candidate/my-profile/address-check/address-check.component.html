@@ -1,0 +1,322 @@
+<div id="bgLayer" style="margin-top: -86px;" *ngIf="diffAddress"></div>
+<div class="popupMainBx" *ngIf="diffAddress">
+  <div class="popup">
+    <div class="descBx">
+      <!-- <a href="javascript:;" (click)="closePop()" class="popClose" role="link" tabindex="-1" aria-label="Close Popup"></a> -->
+      <!-- <h2><span>Are you sure?</span></h2> -->
+      <div class="msgBx">
+        <h5 style="color: #31708f">
+            Please Add the permanent address details.
+        </h5>
+        <br /> 
+        <!-- Please confirm to proceed. -->
+      </div>
+      <input type="button" value="Ok" (click)="dispalyFromForPermanentAdd()"  class="submitBtn btn" role="button" tabindex="-1" aria-label="Confirm" />
+      <!-- <input type="button" value="cancel" (click)="closePop()" class="cancelBtn" role="button" tabindex="-1" aria-label="Cancel" /> -->
+    </div>
+  </div>
+</div>
+<section class="breadCrumb container-fluid">
+    <a routerLink="/candidates/dashboard"><i class="left"></i> &nbsp; Dashboard</a>
+  </section>
+  <app-my-profile-header  [screenNumber]="screenNumber"></app-my-profile-header>
+  <ngx-loading [show]="loading"></ngx-loading>
+  <div>
+    <section id="intDet" class="container-fluid">
+      <div class="personalDetails	four">
+        <span class="topArw"></span>
+        <div class="container" *ngIf="(formList && formList.length > 0) || showAddMoreAddress">
+          <app-commet-text-area *ngIf="!isEntityDisabled"></app-commet-text-area>
+        </div>
+        <div class=" container">
+        <form  *ngIf="(personalDetails.jobCountryCode === 'IND' || personalDetails.jobCountry === 'India') && ((formList && formList.length > 0) || showAddMoreAddress)" [formGroup]="addressDocDetailsForm">
+            <div><b>Aadhaar Card</b></div>
+          <div class="row">
+            <div class="col-md-5 inputLblBlk">
+                <div class="uploadInputType">
+                  <label for="file-upload" class="custom-file-upload">
+                    <i class="fa fa-cloud-upload"></i>{{ aadhaarDetails ? aadhaarDetails.fileName : 'Upload Document'}}
+                  </label>
+                  <input type="file"  id="file-upload" name='upload_cont_img' ngFileSelect [options]="options" (uploadOutput)="aadharUpload($event)" [uploadInput]="uploadInputForAadharcard"  onclick="value = null" multiple>
+                </div>
+            </div>
+            <div class="col-md-3 inputLblBlk">
+              <div class="input-effect has-content" style="margin-top: 0px;">
+                <input class="inputFloatEffect " [ngClass]="{'has-content' : field1.value !==''}" value="" formControlName="aadhaarCard" type="text" placeholder="" #field1 tabindex="0" aria-label="Aadhaar number">
+                <label>Aadhaar number <span class="astrik" style="color:red">*</span></label>
+                <span class="focus-border"></span>
+              </div>
+            </div>
+          </div><br><br>
+          <div class="row addressCheckChkBx">
+            <div class="form-row col-md-12 inputLblBlk">
+              <div><h6><b>Is Aadhaar card address current or permanent?  &nbsp; &nbsp; </b></h6></div>
+              <label class="containerChkBx">Current address
+                  <input type="checkbox" value="C"  formControlName="addressTypeCurrent" tabindex="0" aria-label="Current address"> 
+                <span class="checkmark"></span>
+              </label> &nbsp; &nbsp;  
+
+              <label class="containerChkBx">Permanent address
+                  <input type="checkbox"    formControlName="addressTypeParmanet" value="P" tabindex="0" aria-label="Permanent address">
+                <span class="checkmark"></span>
+              </label>
+              <!--<label  class="rbt"> <label>Current address</label>
+                <input type="checkbox" value="C"  formControlName="addressTypeCurrent" tabindex="0" aria-label="Current address"> <span class="checkmark"></span>
+              </label>
+              <label  class="rbt"> <label>Permanent address</label>
+                <input type="checkbox"    formControlName="addressTypeParmanet" value="P" tabindex="0" aria-label="Permanent address"> <span class="checkmark"></span>
+              </label>-->
+            </div>
+          </div><br><br>
+          <div><b>Passport</b></div>
+          <div class="row">
+            <div class="col-md-5 inputLblBlk">
+              <div class="uploadInputType">
+                <label for="file-upload" class="custom-file-upload">
+                  <i class="fa fa-cloud-upload"></i> {{ passportDetails ? passportDetails.fileName : 'Upload Document'}}
+                </label>
+                <input type="file"  id="file-upload" name='upload_cont_img' ngFileSelect [options]="options" (uploadOutput)="passportUpload($event)" [uploadInput]="uploadInputForPassport"  onclick="value = null" multiple>
+              </div>
+            </div>
+            <div class="col-md-3 inputLblBlk">
+              <div class="input-effect has-content" style="margin-top: 0px;">
+                <input class="inputFloatEffect "  formControlName="passport"  [ngClass]="{'has-content' : field4.value !==''}" value=""  type="text" placeholder="" #field4 tabindex="0" aria-label="Passport">
+                <label>Passport number 
+                  <!-- <span class="astrik" style="color:red">*</span> -->
+                </label>
+                <span class="focus-border"></span>
+              </div>
+            </div>
+            <div class="col-md-3 inputLblBlk">
+              <div class="input-effect has-content" style="margin-top: -6px;">
+                  <input class="inputFloatEffect has-content"  formControlName="validTill"  type="date" [max]="3000-01-01" placeholder="" tabindex="0" aria-label="Valid till">
+                  <label>Valid till
+                    <!-- <span style="color:red" class="astrik">*</span> -->
+                  </label>
+                  <span class="focus-border"></span>
+              </div>
+            </div>
+          </div><br><br>
+          <div><b>PAN card</b></div>
+          <div class="row">
+            <div class="col-md-5 inputLblBlk">
+              <div class="uploadInputType">
+                <label for="file-upload" class="custom-file-upload">
+                  <i class="fa fa-cloud-upload"></i> {{ panDetails ? panDetails.fileName : 'Upload Document'}}
+                </label>
+                <input type="file"  id="file-upload" name='upload_cont_img' ngFileSelect [options]="options" (uploadOutput)="panUpload($event)" [uploadInput]="uploadInputForPan"  onclick="value = null" multiple>
+              </div>
+            </div>
+            <div class="col-md-3 inputLblBlk">
+              <div class="input-effect has-content" style="margin-top: 0px;">
+                <input class="inputFloatEffect " [ngClass]="{'has-content' : field15.value !==''}" value="" formControlName="pan" type="text" placeholder="" #field15 tabindex="0" aria-label="Pan card number">
+                <label>PAN number <span class="astrik" style="color:red">*</span></label>
+                <span class="focus-border"></span>
+              </div>
+            </div>
+          </div>
+        </form>
+        </div><br><hr><br>
+          
+        <div class="container" *ngFor="let subEntityExistingDetail of subEntityExistingDetails;let i = index">
+          <h6> <b>Address Check</b></h6>
+          <p>(Passport, Pan card, Driving License, Voter's ID card, Aadhaar card)</p>
+          <p><span style="color:red" class="astrik">*</span>All the mentioned documents are mandatory for joining backgroung verification process </p>
+          <div class="container">
+            <br>
+            <form [formGroup]="formList[i]"  >
+              <div class="row">
+                <div *ngFor="let entity of entitiesList[i]" class="form-row col-md-4 inputLblBlk">
+                  <app-entity [entity]="entity" [form]="formList[i]"></app-entity>
+                </div>
+                <div class="form-rowsetDuration col-md-4 inputLblBlk" *ngIf="durationDetails !== undefined && durationDetails[i] !== undefined &&  durationDetails[i].fromDate !== undefined">
+                    <div class="input-effect has-content">
+                    <input class="inputFloatEffect has-content" [disabled]="isEntityDisabled" [value]="durationDetails[i].fromDate | date:'yyyy-MM-dd'"(input)="onChangeDate('fromDate', $event.target.value, i)" type="date" [max]="maxDate" placeholder="">
+                    <label>From Date<span style="color:red" class="astrik">*</span></label>
+                    <span class="focus-border"></span>
+                  </div>
+                </div>
+                <div class="form-row col-md-4 inputLblBlk" *ngIf="durationDetails !== undefined && durationDetails[i] !== undefined && durationDetails[i].toDate !== undefined">
+                    <div class="input-effect has-content">
+                      <input class="inputFloatEffect has-content" (input)="onChangeDate( 'toDate', $event.target.value, i)"  [disabled]="isEntityDisabled" [value]="durationDetails[i].toDate | date:'yyyy-MM-dd'" type="date" [max]="maxDate" placeholder="" >
+                      <label>To Date<span style="color:red" class="astrik">*</span></label>
+                      <span class="focus-border"></span>
+                    </div>
+                </div>
+                <div class="form-row col-md-4 inputLblBlk" *ngIf="durationDetails !== undefined && durationDetails[i] !== undefined && durationDetails[i].toDate !== undefined">
+                    <div class="input-effect has-content">
+                      <input class="inputFloatEffect has-content" (input)="onChangeDate( 'comments', $event.target.value, i)"  [disabled]="isEntityDisabled" [value]="durationDetails[i].comments" type="text" placeholder="" >
+                      <label>Remark<span style="color:red" class="astrik">*</span></label>
+                      <span class="focus-border"></span>
+                    </div>
+                </div>
+              </div>
+            </form>
+            <br>
+            <h5 *ngIf="fileDetailsList[i] && fileDetailsList[i].length > 0"><strong>Documents upload:</strong></h5>
+            <p *ngIf="fileDetailsList[i] && fileDetailsList[i].length > 0"><span class="astrik"></span>PNG/JPG/JPEG/PDF/DOC/HTML/MSG/DOCX/TEXT/GIF/MDI </p>
+            <br>
+            <div class="row" *ngIf="fileDetailsList[i] && fileDetailsList[i].length > 0">
+                <div class="col-md-4" *ngFor="let fileDetail of fileDetailsList[i];let inx = index" [hidden]="!(inx == 0 || (inx > 0 && fileDetail.sub_sequence !== fileDetailsList[i][inx -1 ].sub_sequence))">
+                
+                    <!-- {{fileDetail | json}} -->
+                  <div *ngIf="inx == 0 || (inx > 0 && fileDetail.sub_sequence !== fileDetailsList[i][inx -1 ].sub_sequence) ">
+                    <div *ngFor="let fileDetail2 of fileDetailsList[i];let ind = index">
+                      <div class="uploadInputType" *ngIf="inx == ind">
+                        <label for="file-upload" class="custom-file-upload">
+                          <i class="fa fa-cloud-upload" ></i> 
+                          
+                          <span>Documents </span>
+                        </label>
+                        <input type="file" [disabled]="isEntityDisabled" [hidden] = "isEntityDisabled" style="color: transparent !important;" id="file-upload" name='upload_cont_img' ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event, fileDetail)" [uploadInput]="uploadInput"  onclick="value = null" multiple>
+                        <br>
+                      </div>
+                    </div>
+                    <span style="width:100%" *ngFor="let fileDetail2 of fileDetailsList[i];let index1 = index">
+                        <span class="docuRow" *ngIf="fileDetail.sub_sequence ===fileDetail2.sub_sequence">{{filesNameArray[i][index1]}}&nbsp;&nbsp; <span [hidden]="!filesNameArray[i][index1]" ><a [ngClass]="isEntityDisabled ? 'disabled' : ''"  href="javascript:;" (click)="removeExisingFile(i, index1)"><i class="fa fa-trash" aria-hidden="true"></i></a> 
+                        </span>&nbsp;</span>
+                      </span>
+                  </div>
+                </div>
+            </div>
+           <hr>
+          </div>
+        </div>
+        <div *ngIf="showAddMoreAddress">
+            <div class="container">
+                <div class="container"class="form-row inputLblBlk">
+                    <div ><h6><b>Current address same as permanent address ? &nbsp; &nbsp; </b></h6></div>
+                    <label  class="rbt"> <label>Yes</label>
+                      <input type="radio" name="address" (click)="onSelect('YES')" checked value="Y" tabindex="0" aria-label="Self-employment Yes"> <span class="checkmark"></span>
+                    </label>
+                    <label  class="rbt"> <label>No</label>
+                      <input type="radio"  name="address" (click)="showPopMessage()"  value="N" tabindex="0" aria-label="Self-employment No"> <span class="checkmark"></span>
+                    </label>
+                </div>
+              </div>
+              <br>
+          <div class="container">
+            <h6><b>Current address</b></h6>
+          <p>(Passport, Pan card, Driving License, Voter's ID card, Aadhaar card)</p>        
+            <p><span style="color:red" class="astrik">*</span>All the mentioned documents are mandatory for joining backgroung verification process </p>
+            <br>
+            <div class="container">
+              <form (ngSubmit)="onSubmit()" [formGroup]="subEntityDetailsForm">
+                <div class="row">
+                  <div *ngFor="let entity of moreEntities" class="form-row col-md-4 inputLblBlk">
+                    <app-entity [entity]="entity" [form]="subEntityDetailsForm"></app-entity>
+                  </div>
+                  <div class="form-row2 col-md-4 inputLblBlk">
+                      <div class="input-effect has-content">
+                        <input class="inputFloatEffect has-content" (input)="onChangeDate( 'fromDate', $event.target.value, duration.length-1, 'addMoreFromDate')" type="date" [max]="maxDate" placeholder="">
+                        <label>From Date<span style="color:red" class="astrik">*</span></label>
+                        <span class="focus-border"></span>
+                      </div>
+                  </div>
+                  <div class="form-row2 col-md-4 inputLblBlk">
+                      <div class="input-effect has-content">
+                        <input class="inputFloatEffect has-content" (input)="onChangeDate( 'toDate', $event.target.value, duration.length-1, 'addMoreToDate')" type="date" [max]="maxDate" placeholder="">
+                        <label>To Date<span style="color:red" class="astrik">*</span></label>
+                        <span class="focus-border"></span>
+                      </div>
+                    </div>
+
+                    <div class="form-row2 col-md-4 inputLblBlk">
+                        <div class="input-effect has-content">
+                          <input class="inputFloatEffect has-content" (input)="onChangeDate( 'comments', $event.target.value, duration.length-1)"  value="" type="text" placeholder="" >
+                          <label>Remark<span style="color:red" class="astrik">*</span></label>
+                          <span class="focus-border"></span>
+                        </div>
+                    </div>
+
+                </div><br />
+              </form>   
+              <h5><strong>Documents upload:</strong></h5>
+              <p><span class="astrik"></span>PNG/JPG/JPEG/PDF/DOC/HTML/MSG/DOCX/TEXT/GIF/MDI </p>
+              <br>
+              <div class="row">
+                <!-- <div class="col-md-4" *ngFor="let fileDetail of documentCategory;let i = index">
+                  <div class="uploadInputType">
+                    <label for="file-upload" class="custom-file-upload">
+                      <i class="fa fa-cloud-upload" ></i> {{fileDetail.decription}}
+                    </label>
+                    <input tabindex="0" type="file" aria-label="Documents Upload"  id="file-upload" name='upload_cont_img' ngFileSelect [options]="options" (uploadOutput)="onUploadedDoc($event, i)" [uploadInput]="uploadInputForAddressProof" multiple>
+                  </div>
+                </div> -->
+                <div class="col-md-4" >
+                  <div class="uploadInputType">
+                    <label for="file-upload"  class="custom-file-upload">
+                      <i class="fa fa-cloud-upload" ></i> Address Proof <span style="color:red" class="astrik">*</span>
+                    </label>
+                    <input tabindex="0" type="file" aria-label="Documents Upload"  id="file-upload" name='upload_cont_img' ngFileSelect [options]="options" (uploadOutput)="onUploadedDoc($event, 0)" [uploadInput]="uploadInputForAddressProof" style="color:transparent"  onclick="value = null" multiple>
+                  </div>
+                  <span class="docuRow" *ngFor="let file of filesForCurrentProof;let i = index"> &nbsp;{{file.name}} &nbsp; <span  ><a  href="javascript:;"><i (click)="removeFileFromAddressProof(file.id, i)" class="fa fa-trash" aria-hidden="true"></i></a> 
+                  </span>&nbsp;</span>
+                </div>
+              </div>
+            </div>
+          </div> 
+          <hr><br>
+        </div>
+        <div *ngIf="showCurrentAddress">
+          <div class="container">
+            <h6><b>Permanent address</b></h6>
+          <p>(Passport, Pan card, Driving License, Voter's ID card, Aadhaar card)</p>        
+            <p><span style="color:red" class="astrik">*</span>All the mentioned documents are mandatory for joining backgroung verification process </p>
+            <br>
+            <div class="container">
+              <form (ngSubmit)="onSubmit()" [formGroup]="subEntityDetailsFormForCurrentAddress">
+                <div class="row">
+                  <div *ngFor="let entity of moreEntitiesForCurrentAddress" class="form-row col-md-4 inputLblBlk">
+                    <app-entity [entity]="entity" [form]="subEntityDetailsFormForCurrentAddress"></app-entity>
+                  </div>
+                  <div class="form-row2 col-md-4 inputLblBlk">
+                      <div class="input-effect has-content">
+                        <input class="inputFloatEffect has-content" (input)="onChangeDate( 'fromDate', $event.target.value, duration.length-1, 'addMoreCurrentFromDate')" type="date" [max]="maxDate" placeholder="">
+                        <label>From Date<span style="color:red" class="astrik">*</span></label>
+                        <span class="focus-border"></span>
+                      </div>
+                  </div>
+                  <div class="form-row2 col-md-4 inputLblBlk">
+                      <div class="input-effect has-content">
+                        <input class="inputFloatEffect has-content" (input)="onChangeDate( 'toDate', $event.target.value, duration.length-1, 'addMoreCurrentToDate')" type="date" [max]="maxDate" placeholder="">
+                        <label>To Date<span style="color:red" class="astrik">*</span></label>
+                        <span class="focus-border"></span>
+                      </div>
+                    </div>
+                </div><br />
+              </form>   
+              <h5><strong>Documents upload:</strong></h5>
+              <p><span class="astrik"></span>PNG/JPG/JPEG/PDF/DOC/HTML/MSG/DOCX/TEXT/GIF/MDI </p>
+              <br>
+              <div class="row">
+                <div class="col-md-4" *ngFor="let fileDetail of documentCategory;let i = index">
+                  <div class="uploadInputType">
+                    <label for="file-upload" class="custom-file-upload">
+                      <i class="fa fa-cloud-upload" ></i> {{fileDetail.decription}}
+                    </label>
+                    <input tabindex="0" type="file" aria-label="Documents Upload"  id="file-upload" name='upload_cont_img' ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput"  onclick="value = null" multiple>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> 
+          <hr><br>
+        </div>
+      <!-- <app-commet-text-area *ngIf="!isEntityDisabled"></app-commet-text-area> -->
+        <div class="container">
+          <input *ngIf="!showAddMoreAddress" tabindex="0" aria-label="ADD ADDRESS CHECK" role="button" style="width: 280px" value="ADD ADDRESS CHECK"   (click)="addMoreAddress()" class="submitBtn btn" type="button">
+          <input *ngIf="showAddMoreAddress" style="width: 280px" tabindex="0" aria-label="REMOVE ADDRESS CHECK" role="button" value="REMOVE ADDRESS CHECK"   (click)="removeAddress()" class="submitBtn btn" type="button">
+        </div>
+        <br><hr><br>
+        <div class="container" *ngIf="showAddMoreAddress || (entitiesList && entitiesList.length > 0)">
+          <br *ngIf="isFormInvalid || showSuccessMessage">
+          <input value="Save" (click)="onSubmit('Save')" class="submitBtn btn" type="button" role="button" tabindex="0" aria-label="Save">&nbsp;
+          <input value="Save & Next" (click)="onSubmit('Save & Next')" class="submitBtn btn" type="button" role="button" tabindex="0" aria-label="Save & Next">
+        </div>
+      </div>
+      <!-- <div *ngIf="payLoad != undefined" class="form-row container">
+          <strong>Saved the following values</strong><br>{{payLoad | json}}
+        </div> -->
+    </section>
+  </div>

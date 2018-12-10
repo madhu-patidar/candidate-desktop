@@ -1,0 +1,80 @@
+<section id="login_registration" class="container-fluid">
+	<div class="container" *ngIf="showRegistrationForm">
+		<h2 class="bdrBtmy3"><span>Welcome to Embark</span></h2>
+		Towards a better tomorrow, together! Join us in this journey to success.
+		<div class="reg_form">
+				<form [formGroup]="registrationForm" >
+			<h3 class="bdrBtmy2"><span>Register</span></h3>
+			<div class="row">
+				
+					<div class="col-sm-4">
+						<div class="input-effect has-content">
+							<input class="inputFloatEffect has-content" formControlName="userId" value="userid@xyz.com" type="text" placeholder="">
+							<label>User ID</label>
+							<span class="focus-border"></span>
+						</div>
+						<div class="input-effect">
+							<input class="inputFloatEffect has-content" value="123456" formControlName="password" type="password" placeholder="">
+							<label>Enter Password</label>
+							<span class="focus-border"></span>
+						</div>
+						<div class="input-effect">
+							<input class="inputFloatEffect" [ngClass]="{'has-content': registrationForm.controls.confirmPassword.value.length >0} " formControlName="confirmPassword" type="password" #confirmPassword placeholder="">
+							<label>Confirm Password</label>
+							<span class="focus-border"></span>
+						</div>
+						<input type="button" value="register" (click)="onRegistration()" class="submitBtn btn" />
+						<input type="button" value="cancel" class="cancelBtn" />
+					</div>
+					<div class="col-sm-2 orSeprator" align="center">
+						<img src="assets/images/reg_or_seprator.png" alt="OR" class="desktop" />
+						<img src="assets/images/reg_or_sepratorHor.png" alt="OR" class="mobile" />
+					</div>
+					<div class="col-sm-4 reg_socialIcons">
+						<h3>Use your social<br />accounts to log in</h3>
+						<div class="socialIcons">
+							<a href="#" class="linkedin"><i class="fab fa-linkedin-in"></i></a><a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a><a href="javascript:;" class="twitter"><i class="fab fa-twitter"></i></a><a href="#" class="google"><i class="fab fa-google-plus-g"></i></a>
+						</div>
+					</div>
+					<div class="col-sm-2">&nbsp;</div>
+				
+			</div>
+		</form>
+		</div>
+  </div>
+  
+  <div class="container" *ngIf="showOTPForm">
+		<h2 class="bdrBtmy3"><span>Welcome to Embark</span></h2>
+		Towards a better tomorrow, together! Join us in this journey to success.
+		<div class="reg_form">
+			<h3 class="bdrBtmy2"><span>Authenticate</span></h3>
+			<div class="row">
+				<div class="col-sm-4">
+					<form [formGroup]="otpForm" >
+						<div class="input-effect">
+							<input class="inputFloatEffect" [ngClass]="{'has-content': otpForm.controls.otp.value.length >0} " formControlName="otp"  type="text" placeholder="" >
+							<label>Enter OTP</label>
+							<span class="focus-border"></span>
+						</div>
+						<input type="button" value="verify" (click)="onVarify()" class="submitBtn btn" />
+						<input type="button" value="resend otp" class="cancelBtn" />
+					</form>
+				</div>
+				<div class="col-sm-8">&nbsp;</div>
+			</div>
+		</div>
+  </div>
+
+  <div class="container" *ngIf="showSuccessMessage">
+		<h2 class="bdrBtmy3"><span>Welcome to Embark</span></h2>
+		Towards a better tomorrow, together! Join us in this journey to success.
+		<div class="reg_success">
+			<div class="icoRegSuccess"><h2>&nbsp;</h2></div>
+			<div class="icoRegmsg">
+				<h2>Registered successfully</h2>
+				<div class="bluebtn"><input type="button" value="login" class="submitBtn btn" (click)="navigateToLoginPage()" /></div>
+			</div>
+		</div>
+	</div>
+  
+</section>

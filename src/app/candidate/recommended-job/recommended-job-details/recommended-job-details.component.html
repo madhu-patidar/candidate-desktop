@@ -1,0 +1,137 @@
+<!-- Pop message start -->
+<div id="bgLayer" style="margin-top: -86px;" *ngIf="applyNowConfirmation || hasError || hasSuccess"></div>
+<div class="popupMainBx" *ngIf="hasError">
+  <div class="popup">
+    <div class="descBx">
+      <a href="javascript:;" (click)="cancel()" class="popClose" role="link" tabindex="-1" aria-label="Close Popup"></a>
+      <h2><span>Error(s)</span></h2>
+      <div class="msgBx">
+        <ul>
+          <li>
+            <p style="color:red">{{message}}</p>
+          </li>
+        </ul>
+      </div>
+      <!-- <input type="button" value="yes" (click)="sourceConfirmation('Y')" class="submitBtn btn" /> -->
+      <!-- <input type="button" value="Ok" (click)="cancel()" class="cancelBtn" role="button" tabindex="-1" aria-label="Cancel" /> -->
+    </div>
+  </div>
+</div>
+<div class="popupMainBx" *ngIf="hasSuccess">
+  <div class="popup">
+    <div class="descBx">
+      <a href="javascript:;" (click)="cancel()" class="popClose" role="link" tabindex="-1" aria-label="Close Popup"></a>
+      <h2><span>Job Applied!</span></h2>
+      <div class="msgBx">
+        <ul>
+          <li>
+            <p style="color:green">{{message}}</p>
+          </li>
+        </ul>
+      </div>
+      <!-- <input type="button" value="yes" (click)="sourceConfirmation('Y')" class="submitBtn btn" /> -->
+      <input type="button" value="Ok" (click)="navigateToDashboard()" class="cancelBtn" role="button" tabindex="-1" aria-label="Cancel" />
+    </div>
+  </div>
+</div>
+<div class="popupMainBx" *ngIf="applyNowConfirmation">
+  <div class="popup">
+    <div class="descBx">
+      <a href="javascript:;" (click)="hideApplyNowConfirmationModal()" class="popClose" role="link" tabindex="-1" aria-label="Close Popup"></a>
+      <h2><span>Are you sure?</span></h2>
+      <div class="msgBx">If you apply for this job, your previous job application would be deactivated.<br /><br />Please confirm to proceed.</div>
+      <input type="button" value="confirm" (click)="applyConfirmed()"  class="submitBtn btn" role="button" tabindex="-1" aria-label="Confirm" />
+      <input type="button" value="cancel" (click)="hideApplyNowConfirmationModal()" class="cancelBtn" role="button" tabindex="-1" aria-label="Cancel" />
+    </div>
+  </div>
+</div>
+
+<!-- Pop message end -->
+<ngx-loading [show]="loading"></ngx-loading>
+<section class="breadCrumb container-fluid">
+    <a routerLink="/candidates/dashboard"><i class="left"></i> &nbsp; Dashboard</a>
+</section>
+  <section class="jobDetTop container-fluid" *ngIf="jobCode == candidateDetails.jobCode">
+    <div class="container">
+      <h2>{{candidateDetails.jobTitle}}</h2>
+      <!-- <h4>San Francisco,USA</h4>
+      <h3>Global Infrastructure Services</h3> -->
+      <h4>{{candidateDetails.jobLocation}}</h4>
+      <h3>{{candidateDetails.division}}</h3>
+      
+      <h3>Experience : <span> {{candidateDetails.jobExp}}</span>Job Code : <span>{{candidateDetails.jobCode}}</span></h3>
+      <div class="clearfix">
+        <div class="fr socialIcons">Share This Job: &nbsp; 
+          <a href="javascript:;" id="linkTWShareTop" (click)="shareJob('TW')" role="link" aria-label="Twitter" tabindex="0"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+          <a href="javascript:;" id="linkFBShareTop" (click)="shareJob('FB')" role="link" aria-label="Facebook" tabindex="0"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+          <a href="javascript:;" id="linkLIShareTop" (click)="shareJob('LI')" role="link" aria-label="LinkedIn" tabindex="0"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+          <a href="javascript:;" id="linkGPShareTop" (click)="shareJob('GP')" role="link" aria-label="Google Plus" tabindex="0"><i class="fab fa-google-plus-g" aria-hidden="true"></i></a>
+          <a href="javascript:;" (click)="shareJob('MA')" id="linkMAShareTop" role="link" aria-label="Envelope" tabindex="0"><i class="fas fa-envelope" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="jobDetTop container-fluid"  *ngIf="jobCode != candidateDetails.jobCode && !!jobDetails">
+      <div class="container">
+        <h2>{{jobDetails.jobTittle}}</h2>
+        <!-- <h4>San Francisco,USA</h4>
+        <h3>Global Infrastructure Services</h3> -->
+        <h4>{{jobDetails.location}}</h4>
+        <h3>{{jobDetails.groupName}}</h3>
+        
+        <h3>Experience : <span> {{jobDetails.experiance}}</span>Job Code : <span>{{jobDetails.jobCode}}</span></h3>
+        <div class="clearfix">
+  
+          <div class="fl">
+            <input type="button" (click)="showApplyNowConfirmationModal()"  [hidden]="candidateDetails.statuscode !== 'TOSCREEN' && candidateDetails.statuscode !== 'SCREENED'" value="apply now" class="submitBtn btn bigBtn" role="button" tabindex="0" aria-label="Apply Now" /></div>
+          <div class="fr socialIcons">Share This Job: &nbsp; 
+            <a href="javascript:;" id="linkTWShareTop" (click)="shareJob('TW')" role="link" aria-label="Twitter" tabindex="0"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+            <a href="javascript:;" id="linkFBShareTop" (click)="shareJob('FB')" role="link" aria-label="Facebook" tabindex="0"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+            <a href="javascript:;" id="linkLIShareTop" (click)="shareJob('LI')" role="link" aria-label="LinkedIn" tabindex="0"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+            <a href="javascript:;" id="linkGPShareTop" (click)="shareJob('GP')" role="link" aria-label="Google Plus" tabindex="0"><i class="fab fa-google-plus-g" aria-hidden="true"></i></a>
+            <a href="javascript:;" (click)="shareJob('MA')" id="linkMAShareTop" role="link" aria-label="Envelope" tabindex="0"><i class="fas fa-envelope" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  <section class="jobDetDesc container-fluid">
+    <div *ngIf="jobDetailsError" class="container">
+      <h2 *ngIf="jobDetailsError">{{message}}</h2>
+    </div>
+    <div class="container" *ngIf="jobCode != candidateDetails.jobCode && !!jobDetails">
+      
+      <h5>Mandatory Skills:</h5>
+      <p [innerHTML]="jobDetails.mandatorySkills | newline"></p>
+      <h5>Job Description:</h5>
+      <p class="container" [innerHTML]="jobDetails.jobDesc | newline"></p>
+      <h5>Roles & Responsibilities:</h5>
+      <p [innerHTML]="jobDetails.rolesResponsibilities | newline"></p><br /><br />
+     <input type="button" (click)="showApplyNowConfirmationModal()" [hidden]="candidateDetails.statuscode !== 'TOSCREEN' && candidateDetails.statuscode !== 'SCREENED'" value="apply now" class="submitBtn btn bigBtn" role="button" tabindex="0" aria-label="Apply Now" /> 
+    </div>
+
+    <div class="container"  *ngIf="jobCode == candidateDetails.jobCode">
+      <h5>Job Description:</h5>
+      <p class="container" [innerHTML]="candidateDetails.jobDesc | newline"></p>
+      <h5>Roles & Responsibilities:</h5>
+      <p [innerHTML]="candidateDetails.jobRole | newline"></p><br /><br />
+    </div>
+    
+  </section>
+  <section id="recommended_jobs" class="container-fluid">
+    <div class="container">
+      <h2 class="bdrBtmy3"><span>Recommended Jobs</span></h2>
+    </div>
+      <app-recommended-job-carousel (navigateTo)="navigateSamePage($event)" [candidate]="candidateDetails"></app-recommended-job-carousel>
+  </section>
+ 
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modal</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()" role="button" tabindex="0">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    This is a modal.
+  </div>
+</ng-template>

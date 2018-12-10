@@ -1,0 +1,47 @@
+<div id="bgLayer" style="margin-top: -86px;" *ngIf="applyNowConfirmation"></div>
+<div class="popupMainBx" *ngIf="hasError">
+    <div class="popup">
+      <div class="descBx">
+        <a href="javascript:;" (click)="closePop()" class="popClose" role="link" tabindex="-1" aria-label="Close Popup"></a>
+        <h2><span>Error(s)</span></h2>
+        <div class="msgBx">
+          <ul>
+            <li>
+              <p style="color:red">{{message}}</p>
+            </li>
+          </ul>
+        </div>
+        <!-- <input type="button" value="yes" (click)="sourceConfirmation('Y')" class="submitBtn btn" /> -->
+        <input type="button" value="Ok" (click)="closePop()" class="cancelBtn" role="button" tabindex="-1" aria-label="Cancel" />
+      </div>
+    </div>
+  </div>
+<div class="popupMainBx" *ngIf="applyNowConfirmation">
+  <div class="popup">
+    <div class="descBx">
+      <a href="javascript:;" (click)="closePop()" class="popClose" role="link" tabindex="-1" aria-label="Close Popup"></a>
+      <h2><span>Are you sure?</span></h2>
+      <div class="msgBx">Applying for this job will withdraw your previous job applications.<br /><br />  Please confirm to proceed.</div>
+      <input type="button" value="confirm" (click)="onConfirmWithdrawApplication()"  class="submitBtn btn" role="button" tabindex="-1" aria-label="Confirm" />
+      <input type="button" value="cancel" (click)="closePop()" class="cancelBtn" role="button" tabindex="-1" aria-label="Cancel" />
+    </div>
+  </div>
+</div>
+<section class="breadCrumb container-fluid">
+    <a routerLink="/candidates/dashboard"><i class="left"></i> &nbsp; Dashboard</a>
+  </section>
+  <section class="jobBasketTop jobProfile"  *ngIf="!!candidate">
+    <div class="container">
+      <h1 class="bdrBtmy3"><span>Job applied for</span></h1>
+      <div class="reg_success">
+        <div class="icoRegSuccess"><h2>&nbsp;</h2></div>
+        <div class="icoRegmsg">
+          <h2>{{candidate.jobTitle}}</h2>
+          <div class="jpLocation">{{candidate.jobLocation}}</div>
+          <!-- <div class="jpDept">CIS</div> -->
+          <div class="jpCode"><span>Job Code: </span><span>{{candidate.jobCode}}</span></div>
+          <div class="bluebtn"><input value="Withdraw application" (click)="withdrawApplication()" class="cancelBtn" type="button" role="button" tabindex="0" aria-label="Withdraw application"></div>
+        </div>
+      </div>
+    </div>
+  </section>

@@ -1,0 +1,5 @@
+a:not([href]):not([tabindex]) {
+    display: none !important;
+    color: inherit;
+    text-decoration: none;
+}

@@ -1,0 +1,158 @@
+<div class="popupMainBx">
+		<div class="popup spad">
+			<div class="descBx">
+				<a href="javascript:;" (click)="popCancel()" class="popClose" role="link" tabindex="-1" aria-label="Close Popup"></a>
+				<h2><span>Special Assistance Declaration</span></h2>
+					<div class="sadCtnt">
+						<strong>Please select the disability/ies <span>(You can select one or more option)</span>:</strong>
+						<div class="optionBx">
+							<table class="table table-bordered table-hover">
+								<tbody>
+								<tr>
+									<td>
+										<label class="containerChkBx">Blindness
+											<input name="chkBoxPedigree" [checked]="check('Blindness')" (click)="onClick($event)"  value="Blindness" type="checkbox" >
+											<span class="checkmark"></span>
+										</label>
+										</td>
+									<td>
+										<label class="containerChkBx">Low-vision
+											<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Low-vision')"  value="Low-vision" type="checkbox" >
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="containerChkBx">Leprosy Cured persons
+											<input name="chkBoxPedigree" type="checkbox" (click)="onClick($event)" [checked]="check('Leprosy Cured persons')"  value="Leprosy Cured persons" >
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="containerChkBx">Hearing Impairment<br />(deaf and hard of hearing)
+											<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Hearing Impairment (deaf and hard of hearing)')"  value="Hearing Impairment (deaf and hard of hearing)" type="checkbox">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td>
+									<label class="containerChkBx">Locomotor Disability
+										<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Locomotor Disability')"  value="Locomotor Disability" type="checkbox" >
+										<span class="checkmark"></span>
+									</label>
+									</td>
+								<td>
+									<label class="containerChkBx">Dwarfism
+										<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Dwarfism')"  value="Dwarfism"  type="checkbox" >
+										<span class="checkmark"></span>
+									</label>
+									</td>
+									<td>
+									<label class="containerChkBx">Intellectual Disability
+										<input name="chkBoxPedigree" type="checkbox" (click)="onClick($event)" [checked]="check('Intellectual Disability')"  value="Intellectual Disability" >
+										<span class="checkmark"></span>
+									</label>
+									</td>
+									<td>
+									<label class="containerChkBx">Mental Illness
+										<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Mental Illness')"  value="Mental Illness" type="checkbox" >
+										<span class="checkmark"></span>
+									</label>
+									</td>
+								</tr>
+								<tr>
+									<td>
+									<label class="containerChkBx">Autism Spectrum Disorder
+										<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Autism Spectrum Disorder')"  value="Autism Spectrum Disorder" type="checkbox" >
+										<span class="checkmark"></span>
+									</label>
+									</td>
+								<td>
+									<label class="containerChkBx">Cerebral Palsy
+										<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Cerebral Palsy')"  value="Cerebral Palsy" type="checkbox" >
+										<span class="checkmark"></span>
+									</label>
+									</td>
+									<td>
+									<label class="containerChkBx">Muscular Dystrophy
+										<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Muscular Dystrophy')"  value="CMuscular Dystrophy" type="checkbox" >
+										<span class="checkmark"></span>
+									</label>
+									</td>
+									<td>
+									<label class="containerChkBx">Chronic Neurological conditions
+										<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Chronic Neurological conditions')"  value="Chronic Neurological conditions" type="checkbox" >
+										<span class="checkmark"></span>
+									</label>
+									</td>
+								</tr>
+								<tr>
+									<td>
+									<label class="containerChkBx">Specific Learning Disabilities
+										<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Specific Learning Disabilities')"  value="Specific Learning Disabilities" type="checkbox" >
+										<span class="checkmark"></span>
+									</label>
+									</td>
+								<td>
+									<label class="containerChkBx">Multiple Sclerosis
+										<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Multiple Sclerosis')"  value="Multiple Sclerosis" type="checkbox" >
+										<span class="checkmark"></span>
+									</label>
+									</td>
+									<td>
+									<label class="containerChkBx">Speech and Language disability
+										<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Speech and Language disability')"  value="Speech and Language disability" type="checkbox" >
+										<span class="checkmark"></span>
+									</label>
+									</td>
+									<td>
+									<label class="containerChkBx">Thalassemia
+										<input name="chkBoxPedigree" type="checkbox" (click)="onClick($event)" [checked]="check('Thalassemia')"  value="Thalassemia">
+										<span class="checkmark"></span>
+									</label>
+									</td>
+								</tr>
+								<tr>
+									<td>
+									<label class="containerChkBx">Hemophilia
+										<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Hemophilia')"  value="Hemophilia" type="checkbox" >
+										<span class="checkmark"></span>
+									</label>
+									</td>
+								<td>
+									<label class="containerChkBx">Sickle Cell disease
+										<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Sickle Cell disease')"  value="Sickle Cell disease" type="checkbox" >
+										<span class="checkmark"></span>
+									</label>
+									</td>
+									<td>
+									<label class="containerChkBx">Multiple Disabilities including deaf/blindness
+										<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Multiple Disabilities including deaf/blindness')"  value="Multiple Disabilities including deaf/blindness" type="checkbox" >
+										<span class="checkmark"></span>
+									</label>
+									</td>
+									<td>
+									<label class="containerChkBx">Acid Attack victim
+										<input name="chkBoxPedigree" (click)="onClick($event)" [checked]="check('Acid Attack victim')"  value="Acid Attack victim" type="checkbox" >
+										<span class="checkmark"></span>
+									</label>
+									</td>
+								</tr>
+								<tr>
+									<td>
+									<label class="containerChkBx">Parkinson's disease
+										<input name="chkBoxPedigree"  (click)="onClick($event)" [checked]="check('Parkinson disease')"  value="Parkinson disease" type="checkbox" >
+										<span class="checkmark"></span>
+									</label>
+									</td>
+									<td colspan="3"></td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+						<input type="button" value="submit" (click)="onSubmit()" class="submitBtn btn" role="button" tabindex="0" aria-label="Submit" />
+						<input type="button" value="cancel" (click)="popCancel()" class="cancelBtn" role="button" tabindex="0" aria-label="Cancel" />
+					</div>
+			</div>
+		</div>
+	</div>	

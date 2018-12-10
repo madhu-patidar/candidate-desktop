@@ -1,0 +1,216 @@
+<!-- <app-loader [show]="loading"></app-loader> -->
+<div id="bgLayer" style="margin-top: -86px;"  *ngIf="referredMessage || showIframe || showIframe"></div>
+
+
+<div class="popupMainBx" *ngIf="referredMessage">
+	<div class="popup">
+		<div class="descBx">
+			<!-- <a href="javascript:;" (click)="cancel()" class="popClose" role="link" tabindex="-1" aria-label="Close Popup"></a> -->
+			<h2><span>Referral Confirmation</span></h2>
+			<div class="msgBx">You have been referred by {{candidateDetails.subSource}} / {{candidateDetails.source}}. Click Yes to confirm and No to decline the source.</div>
+			<input type="button" value="yes" (click)="sourceConfirmation('Y')" class="submitBtn btn" role="button" tabindex="-1" aria-label="Yes" />
+			<input type="button" value="no" (click)="onNoReferred()" class="cancelBtn" role="button" tabindex="-1" aria-label="No" />
+		</div>
+	</div>
+</div>
+<div class="popupMainBx" *ngIf="noReferred">
+	<div class="popup">
+		<div class="descBx">
+			<!-- <a href="javascript:;" (click)="cancelReferrePop()" class="popClose" role="link" tabindex="-1" aria-label="Close Popup"></a> -->
+			<h2><span>Referral Confirmation</span></h2>
+			<div class="msgBx">Are you sure you are not referred by {{candidateDetails.subSource}}? </div>
+			<input type="button" value="confirm" (click)="onNoSourceConfirmation('N')" class="submitBtn btn" role="button" tabindex="-1" aria-label="Confirm" />
+			<input type="button" value="cancel"  (click)="cancelReferrePop()" class="cancelBtn" role="button" tabindex="-1" aria-label="Cancel" />
+		</div>
+	</div>
+</div>
+
+<div *ngIf="showIframe" id="videolayerbx">
+	<div class="vdobxMain">
+	<div class="vdoclose"><a href="javascript:;" (click)="hideIfram()" role="link" aria-label="Video Popup Close Button" tabindex="-1"><img src="assets/images/popclose1.png" border="0" alt="Close Button"></a></div>
+	<h2>Wipro - A great place to belong</h2>
+	<div class="vdobx">
+		<iframe class="embed-responsive-item" width="620" height="349" [src]="iframeUrl" frameborder="0" allowfullscreen></iframe>
+	</div>
+	</div>
+</div>
+<section id="dashboard_welcome" class="container-fluid">
+	<div class="container">
+		<h1 class="bdrBtmy3"><span>Welcome to Embark</span></h1>
+		Towards a better tomorrow, together! Join us in this journey to success.
+		<div class="welcome_status">
+			<div class="row">
+			<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+				<div class="status_div">
+					<div class="status_circle">
+						<img src="assets/images/profile-icon.png" alt="Candidate Prfoile Icon">
+						<span class="bg-red" *ngIf="!!candidateDetails" >{{ candidateDetails.profile }}%</span>
+					</div>
+					<h2>My Profile</h2>
+					<div class="remark">Completed</div>
+					<div class="status_bt"><input (click)="navigateToMyProfile()" value="Update Now" class="submitBtn btn" type="button" role="button" tabindex="0" aria-label="Update Now"></div>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+				<div class="status_div">
+					<div class="status_circle">
+						<img src="assets/images/applied-icon.png" alt="Job Applied For Icon">
+						<span class="bg-green"><img src="assets/images/icon02.png" alt="Job Applied For Icon"></span>
+					</div>
+					<h2>Job Applied For</h2>
+					<div class="remark" *ngIf="!!candidateDetails && !!candidateDetails.status">Status: {{candidateDetails.status}}</div>
+					<div class="remark" *ngIf="!!candidateDetails && !candidateDetails.status">Not Apply</div>
+					
+					<div class="status_bt"><input (click)="navigateRecommendedJobDetails()" value="View Details" [disabled]="!!candidateDetails && candidateDetails.jobCode == 0" class="submitBtn btn" type="button" role="button" tabindex="0" aria-label="View Details"></div>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+				<div class="status_div">
+					<div class="status_circle">
+						<img src="assets/images/profile-icon.png" alt="Profile Photo">
+						<span class="bg-red" *ngIf="!!candidateDetails">{{ candidateDetails.pendingTask }}</span>
+					</div>
+					<h2>Do It Yourself</h2>
+					<div class="remark">Pending Task</div>
+					<div class="status_bt"><input value="View Tasks" (click)="navigateToPendingTask()" class="submitBtn btn" type="button" role="button" tabindex="0" aria-label="View Tasks"></div>
+				</div>
+			</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section id="recommended_jobs" class="container-fluid">
+	<div class="container">
+		<h3 class="bdrBtmy3"><span>Recommended Jobs</span></h3>
+	</div>
+	<app-recommended-job-carousel [candidate]="candidateDetails"></app-recommended-job-carousel>
+</section>
+<section id="success_stories" class="container-fluid">
+	<div class="container">
+		<h3 class="bdrBtmy3"><span>Our Success Stories</span></h3>
+		<div class="row">
+			<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+				<div class="wipro-case-studies-bg">
+					<a href="https://www.wipro.com/analytics/business-decisions-empowered-by-self-service-bi/" target="_blank" role="link" aria-label="Analytics" tabindex="0">
+						<div class="wipro-shadow"></div>
+						<img src="assets/images/analytics.jpg" alt="Analytics">
+						<div class="wipro-case-studies-bg-textBox">
+							<div class="wipro-case-studies-bg-textBox-head bg-col-yellow" style="background-color:#2E4053;">Analytics</div>
+							<div class="wipro-case-studies-bg-textBox-text">
+								<h4>Business Decisions Empowered by Self-Service BI</h4>
+								<p>Wipro's reporting and visualization solution enabled improved reporting efficiency and productivity for a leading...</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="wipro-case-studies-bg">
+					<a href="https://www.wipro.com/consulting/is-outsourcing-just-another-it-project-/" target="_blank" role="link" aria-label="Consulting" tabindex="0">
+						<div class="wipro-shadow"></div>
+						<img src="assets/images/counsulting-img.jpg" alt="Consulting">
+						<div class="wipro-case-studies-bg-textBox">
+							<div class="wipro-case-studies-bg-textBox-head bg-col-yellow">Consulting</div>
+							<div class="wipro-case-studies-bg-textBox-text">
+								<h4>Partnering For Success: Transitioning from Shared Services to Global Business Services</h4>
+								<p>Evolving your existing Shared Services into Global Business Services morphs the familiar face of cost cutting into a...</p>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+				<div class="wipro-case-studies-bg">
+					<a href="https://www.wipro.com/applications/how-bahrain-steel-leveraged-sap-successfactors-to-transform-hr/" target="_blank" role="link" aria-label="Applications" tabindex="0">
+						<div class="wipro-shadow"></div>
+						<img src="assets/images/applications-img.jpg" alt="Applications">
+						<div class="wipro-case-studies-bg-textBox">
+							<div class="wipro-case-studies-bg-textBox-head bg-col-pink-light">Applications</div>
+							<div class="wipro-case-studies-bg-textBox-text">
+								<h4>How Bahrain Steel leveraged SAP SuccessFactors to transform HR</h4>
+								<p>With the implementation of SAP SuccessFactors HCM suite, Bahrain Steel simplified its employee lifecycle process...</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="wipro-case-studies-bg">
+					<a href="https://www.wipro.com/business-process/a-new-order-with-robots/" target="_blank" role="link" aria-label="Communications" tabindex="0">
+						<div class="wipro-shadow"></div>
+						<img src="assets/images/communications-img.jpg" alt="Communications">
+						<div class="wipro-case-studies-bg-textBox">
+							<div class="wipro-case-studies-bg-textBox-head bg-col-blue">Communications</div>
+							<div class="wipro-case-studies-bg-textBox-text">
+								<h4>A New Order with Robots</h4>
+								<p>Wipro helped UK’s leading communication infrastructure provider standardize its order management with RPA by reducing...</p>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+			<div [hidden]="true" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div class="showmorebtn"><input type="button" value="SHOW MORE" class="submitBtn btn" role="button" tabindex="0" aria-label="Show More" /></div>
+			</div>
+		</div>
+	</div>
+</section>
+<section id="experience_wipro" class="container-fluid">
+	<div class="container">
+		<h3 class="bdrBtmy3"><span>Experience Wipro</span></h3>
+		<div class="row">
+			<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+					<div class="wipro-case-studies-bg">
+						<a href="https://careers.wipro.com/our-equal-opportunities.aspx" role="link" aria-label="Equal Opportunities for All" tabindex="0">
+							<div class="wipro-shadow"></div>
+							<img src="assets/images/homeexplore01.jpg" alt="Equal Opportunities for All">
+							<div class="wipro-case-studies-bg-textBox">
+								<div class="wipro-case-studies-bg-textBox-head bg-col-yellow">Equal Opportunities for All</div>
+								<div class="wipro-case-studies-bg-textBox-text">
+									<p>At Wipro, applicants are considered for employment solely on the basis of their qualifications and competencies.</p>
+								</div>
+							</div>
+						</a>
+					</div>
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+					<div class="wipro-case-studies-bg">
+						<a href="https://careers.wipro.com/hiring-process.aspx" role="link" aria-label="Hiring Process" tabindex="0">
+							<div class="wipro-shadow"></div>
+							<img src="assets/images/homeexplore02.jpg" alt="Hiring Process">
+							<div class="wipro-case-studies-bg-textBox">
+								<div class="wipro-case-studies-bg-textBox-head bg-col-green">Hiring Process</div>
+								<div class="wipro-case-studies-bg-textBox-text">
+									<p>Wipro operates in over 50 countries and the recruitment process differs from geography to geography basis the laws of the land. </p>
+								</div>
+							</div>
+						</a>
+					</div>
+			</div>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<a href="javascript:0;" (click)="playVideo('https://www.youtube.com/embed/lWJzcJNSG24?autoplay=1&rel=0')" aria-label="Experience Wipro" tabindex="0" role="link">
+				   	<div class="wipro-case-studies-bg">
+						<div class="show-popup" data-title="some text" data-desc="some other text">
+						 <div class="play-button">
+						<div class="play-button-1">  
+							</div>
+								</div>
+						</div>
+						<img src="assets/images/wipro-great-place.jpg" alt="Experience Wipro">
+					<div class="wipro-shadow"></div>
+					<div class="wipro-case-studies-bg-textBox">
+					<div class="wipro-case-studies-bg-textBox-head bg-col-red">Experience Wipro</div>
+					<div class="row" style="margin:0;">
+					<div class="wipro-case-studies-bg-textBox-text">
+					<p>An intensity to challenge limits, acting with sensitivity and working with unyielding integrity, experience the Spirit of Wipro and learn more about our products and services on www.wipro.com</p>
+					</div>
+					</div>
+					</div>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- <app-social-media></app-social-media> -->
+
+
+<!-- <div id="map_canvas" style="height:400px;width:800px;"></div> -->
+
